@@ -240,8 +240,19 @@
 			label: 'Date',
 			class: 'hidden md:table-cell md:w-[18%] text-muted-foreground text-sm',
 			render: (value: any) => formatDate(value)
+		},
+		{
+			key: 'note',
+			label: 'Note',
+			class: 'hidden lg:table-cell w-[20%] text-muted-foreground text-sm',
+			render: (value: any, row: any) => {
+				const isTransfer = row.isTransfer || row.type === 'TRANSFER_IN' || row.type === 'TRANSFER_OUT';
+				if (!isTransfer || !value) {
+					return { component: 'text', text: '-', class: 'text-muted-foreground' };
+				}
+				return { component: 'text', text: value, class: 'text-sm italic truncate max-w-[180px]' };
+			}
 		}
-	]);
 
 	async function handleTransferSuccess() {
 		await Promise.all([loadPortfolioData(), fetchRecentTransactions()]);
