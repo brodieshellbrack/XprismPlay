@@ -157,7 +157,7 @@
 										{/if}
 									</div>
 
-									<p class="text-muted-foreground text-xs leading-relaxed">
+									<p class="text-muted-foreground text-xs leading-relaxed whitespace-pre-wrap">
 										{notification.message}
 									</p>
 

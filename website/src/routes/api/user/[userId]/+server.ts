@@ -94,6 +94,7 @@ export async function GET({ params }) {
                 recipientUsername: sql<string>`(SELECT username FROM ${user} WHERE id = ${transaction.recipientUserId})`,
                 senderUserId: transaction.senderUserId,
                 recipientUserId: transaction.recipientUserId,
+                note: transaction.note,
             })
             .from(transaction)
             .innerJoin(coin, eq(transaction.coinId, coin.id))
