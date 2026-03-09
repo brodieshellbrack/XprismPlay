@@ -33,7 +33,7 @@
 	let maxUses = $state('');
 	let expirationOption = $state('');
 	let rewardType = $state('BASE_CURRENCY');
-
+    
 	let isCreating = $state(false);
 	let createSuccess = $state(false);
 	let createMessage = $state('');
@@ -130,6 +130,29 @@
 		}
 	}
 
+	let isDeleting = $state<number | null>(null);
+
+	async function deletePromoCode(id: number) {
+		isDeleting = id;
+		try {
+			const response = await fetch('/api/admin/promo', {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ id })
+			});
+			if (response.ok) {
+				promoCodes = promoCodes.filter(p => p.id !== id);
+			} else {
+				const result = await response.json();
+				console.error('Failed to delete promo code:', result.error);
+			}
+		} catch (e) {
+			console.error('Failed to delete promo code:', e);
+		} finally {
+			isDeleting = null;
+		}
+	}
+
 	function handleSubmit(event: Event) {
 		event.preventDefault();
 		createPromoCode();
@@ -187,7 +210,7 @@
 									required
 								/>
 							</div>
-
+							
 							<div class="space-y-1">
 								<Label for="rewardType" class="text-sm">Reward Type *</Label>
 								<Select.Root type="single" bind:value={rewardType} disabled={isCreating}>
@@ -267,9 +290,7 @@
 								<AlertDescription class={createSuccess ? 'text-green-800 dark:text-green-200' : ''}>
 									{createMessage}
 									{#if createSuccess && rewardAmount}
-										<span class="font-semibold">
-											(+{rewardType === 'GEMS' ? `${rewardAmount} Gems` : `$${rewardAmount}`} reward)</span
-										>
+										<span class="font-semibold"> (+{rewardType === 'GEMS' ? `${rewardAmount} Gems` : `$${rewardAmount}`} reward)</span>
 									{/if}
 								</AlertDescription>
 							</Alert>
@@ -346,9 +367,7 @@
 
 									<div class="grid grid-cols-2 gap-3 text-xs">
 										<span class="font-bold">
-											{promo.rewardType === 'GEMS'
-												? `${promo.rewardAmount} Gems`
-												: `$${promo.rewardAmount}`}
+											{promo.rewardType === 'GEMS' ? `${promo.rewardAmount} Gems` : `$${promo.rewardAmount}`}
 										</span>
 										<div class="flex items-center gap-1">
 											<HugeiconsIcon icon={UserGroupIcon} class="h-3 w-3" />

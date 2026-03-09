@@ -3,6 +3,7 @@ import { error, json } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { user, session } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
+import { writeAdminLog } from '$lib/server/admin-log';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -64,6 +65,8 @@ export const POST: RequestHandler = async ({ request }) => {
 		} catch (e) {
 			console.warn('Failed to clear user cache:', e);
 		}
+
+		writeAdminLog(Number(authSession.user.id), 'BAN', targetUser.id, `Reason: ${reason.trim()}`);
 
 		return json({ success: true });
 	} catch (e: any) {

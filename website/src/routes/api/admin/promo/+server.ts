@@ -3,6 +3,7 @@ import { error, json } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { promoCode, promoCodeRedemption } from '$lib/server/db/schema';
 import { eq, count } from 'drizzle-orm';
+import { writeAdminLog } from '$lib/server/admin-log';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -15,22 +16,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
     if (!code || !rewardAmount || !rewardType) {
         return json({ error: 'Code, reward amount, and reward type are required' }, { status: 400 });
-    }
-
-    if (rewardAmount > 100000000000) {
-        return json({ error: 'thats too many, please dont do that.' }, { status: 400 });
-    }
-
-    if (rewardAmount < 0) {
-        return json({ error: 'dont do it yourself, ask xprism if you wnat a negative promo code.' }, { status: 400 });
-    }
-
-    if (rewardType == 'GEMS' && !Number.isInteger(rewardAmount)) {
-        return json({ error: 'thats not an int!' }, { status: 400 });
-    }
-
-    if (rewardType == 'GEMS' && rewardAmount > 15000) {
-        return json({ error: 'thats not an int!' }, { status: 400 });
     }
 
     const normalizedCode = code.trim().toUpperCase();
@@ -59,6 +44,8 @@ export const POST: RequestHandler = async ({ request }) => {
         })
         .returning();
 
+    writeAdminLog(userId, 'PROMO_CREATE', null, `Code: ${normalizedCode}, Amount: ${rewardAmount}, Type: ${rewardType}`);
+
     return json({
         success: true,
         promoCode: {
@@ -66,12 +53,37 @@ export const POST: RequestHandler = async ({ request }) => {
             code: newPromoCode.code,
             description: newPromoCode.description,
             rewardAmount: Number(newPromoCode.rewardAmount),
-            rewardType: newPromoCode.rewardType, // Return it
+            rewardType: newPromoCode.rewardType,
             maxUses: newPromoCode.maxUses,
             expiresAt: newPromoCode.expiresAt
         }
     });
 
+};
+
+export const DELETE: RequestHandler = async ({ request }) => {
+    const session = await auth.api.getSession({ headers: request.headers });
+    if (!session?.user || !session.user.isAdmin) {
+        throw error(403, 'Admin access required');
+    }
+
+    const { id } = await request.json();
+    if (!id) return json({ error: 'Promo code ID is required' }, { status: 400 });
+
+    const [target] = await db
+        .select({ id: promoCode.id, code: promoCode.code })
+        .from(promoCode)
+        .where(eq(promoCode.id, id))
+        .limit(1);
+
+    if (!target) throw error(404, 'Promo code not found');
+
+    await db.delete(promoCodeRedemption).where(eq(promoCodeRedemption.promoCodeId, id));
+    await db.delete(promoCode).where(eq(promoCode.id, id));
+
+    writeAdminLog(Number(session.user.id), 'PROMO_DELETE', null, `Code: ${target.code}`);
+
+    return json({ success: true });
 };
 
 export const GET: RequestHandler = async ({ request }) => {
