@@ -319,7 +319,7 @@ async function checkAchievement(
 			);
 		
 		case 'tower_god':
-    		return ctx.arcadeWon === true && ctx.floor == 10 && (ctx.difficulty as any) == 'hard'
+    		return ctx.arcadeWon === true && ctx.floor == 10 && (ctx.difficulty as any) == 'hard' && (ctx.arcadeWager ?? 0) >= 10
 
 		case 'arcade_100': {
 			const [userData] = await db

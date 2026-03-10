@@ -351,7 +351,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
 	{
 		id: 'tower_god',
 		name: 'Tower God',
-		description: 'Get to floor 10 on hard mode and cash out',
+		description: 'Get to floor 10 on hard mode and cash out (must bet at least $10)',
 		icon: 'elevator.png',
 		difficulty: 'legendary',
 		cashReward: 100000,
