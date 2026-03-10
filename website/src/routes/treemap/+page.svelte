@@ -209,7 +209,7 @@
 </script>
 
 <SEO
-	title="Treemap - Rugplay"
+	title="Treemap - XprismPlay"
 	description="Interactive virtual cryptocurrency market treemap visualization. View simulated market cap and 24h price changes for all coins in our trading game's visual treemap format."
 	keywords="virtual cryptocurrency treemap, market visualization game, crypto market cap simulation, price changes game, market analysis simulator"
 />

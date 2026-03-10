@@ -13,7 +13,7 @@
 </script>
 
 <SEO
-	title="Privacy Policy - Rugplay"
+	title="Privacy Policy - XprismPlay"
 	description="Privacy Policy for Rugplay cryptocurrency simulation game. Learn about data collection, account deletion process, virtual currency privacy, and your rights."
 	keywords="privacy policy, data protection, account deletion, virtual currency privacy, simulation game privacy"
 />
@@ -158,9 +158,9 @@
 					All outcomes are final once processed.
 				</p>
 				<p>
-					<strong>Limitation of Liability:</strong> We are not responsible for any losses, incorrect
-					outcomes, or disputes arising from automated AI decisions in prediction markets. By participating,
-					you acknowledge and accept the risks of AI-automated resolution systems.
+					<strong>Limitation of Liability:</strong> We are not responsible for any losses, incorrect outcomes,
+					or disputes arising from automated AI decisions in prediction markets. By participating, you
+					acknowledge and accept the risks of AI-automated resolution systems.
 				</p>
 			</Card.Content>
 
@@ -217,9 +217,9 @@
 								with your User ID removed.
 							</li>
 							<li>
-								<strong>Comment content:</strong> Your comments will have their User ID removed, the
-								content replaced with "[deleted]", and marked as deleted. Timestamps and like counts
-								(aggregated on the comment itself) are preserved.
+								<strong>Comment content:</strong> Your comments will have their User ID removed, the content
+								replaced with "[deleted]", and marked as deleted. Timestamps and like counts (aggregated
+								on the comment itself) are preserved.
 							</li>
 							<li>
 								<strong>Prediction bets:</strong> Records of bets placed, with your User ID removed.
@@ -229,8 +229,8 @@
 								ID as creator will be removed.
 							</li>
 							<li>
-								<strong>Created prediction questions:</strong> Prediction questions you created will
-								remain, but your User ID as creator will be removed.
+								<strong>Created prediction questions:</strong> Prediction questions you created will remain,
+								but your User ID as creator will be removed.
 							</li>
 						</ul>
 					</div>
@@ -240,16 +240,16 @@
 						<p class="mb-3">Anonymized data serves these legitimate purposes:</p>
 						<ul class="ml-6 list-disc space-y-2">
 							<li>
-								<strong>Market Integrity:</strong> Historical transaction data is needed to maintain
-								accurate price charts and trading history
+								<strong>Market Integrity:</strong> Historical transaction data is needed to maintain accurate
+								price charts and trading history
 							</li>
 							<li>
 								<strong>Platform Function:</strong> Coins and prediction markets must remain functional
 								even after creators delete their accounts
 							</li>
 							<li>
-								<strong>Community Content:</strong> Comments remain available to preserve discussion
-								threads, but with anonymous authorship
+								<strong>Community Content:</strong> Comments remain available to preserve discussion threads,
+								but with anonymous authorship
 							</li>
 							<li>
 								<strong>System Balance:</strong> Transaction records ensure the platform's virtual economy
@@ -300,8 +300,8 @@
 						<strong>Rectification:</strong> The right to correct inaccurate or incomplete data.
 					</li>
 					<li>
-						<strong>Erasure (Deletion):</strong> The right to request deletion of your personal data
-						(subject to our retention policy and legal obligations, as described in Section 4).
+						<strong>Erasure (Deletion):</strong> The right to request deletion of your personal data (subject
+						to our retention policy and legal obligations, as described in Section 4).
 					</li>
 					<li>
 						<strong>Portability:</strong> The right to export your data in a structured, commonly used,

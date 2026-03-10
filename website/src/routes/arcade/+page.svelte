@@ -51,7 +51,7 @@
 </script>
 
 <SEO
-	title="Arcade - Rugplay"
+	title="Arcade - XprismPlay"
 	description="Play virtual arcade games with simulated currency in Rugplay. Try coinflip, slots, and mines games using virtual money with no real-world value - purely for entertainment."
 	keywords="virtual arcade simulation, coinflip game, slots game, mines game, virtual arcade, simulated games, entertainment games"
 />

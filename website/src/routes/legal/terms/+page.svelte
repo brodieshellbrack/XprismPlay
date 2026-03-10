@@ -14,7 +14,7 @@
 </script>
 
 <SEO
-	title="Terms of Service - Rugplay"
+	title="Terms of Service - XprismPlay"
 	description="Terms of Service for Rugplay - cryptocurrency trading simulation game. Learn about virtual currency, rug pull mechanics, arcade features, and platform rules."
 	keywords="terms of service, legal terms, simulation game rules, virtual currency terms, rug pull simulation"
 />
@@ -259,8 +259,7 @@
 						</ul>
 						<p class="mt-3" style="color: oklch(0.828 0.189 84.429 / 0.8)">
 							<strong>No Compensation:</strong> We will not provide alternative compensation or restore
-							virtual balances lost due to investments in prohibited content. You invest at your own
-							risk.
+							virtual balances lost due to investments in prohibited content. You invest at your own risk.
 						</p>
 					</div>
 				</div>

@@ -466,7 +466,7 @@
 </script>
 
 <SEO
-	title="Shop - Rugplay"
+	title="Shop - XprismPlay"
 	description="Buy Gems to unlock name colors and cosmetics in Rugplay. Open crates for random rewards."
 	keywords="rugplay shop, gems, name colors, cosmetics, crates"
 />

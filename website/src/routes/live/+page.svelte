@@ -37,13 +37,13 @@
 </script>
 
 <SEO
-	title="Live Trades - Rugplay"
+	title="Live Trades - XprismPlay"
 	description="Watch real-time virtual cryptocurrency trading activity in the Rugplay simulation game. See live trades, user activity, and market movements as they happen."
 	keywords="live crypto trades game, real-time trading simulation, virtual trading activity, crypto game stream"
 />
 
 <svelte:head>
-	<title>Live Trades - Rugplay</title>
+	<title>Live Trades - XprismPlay</title>
 	<meta name="description" content="Real-time cryptocurrency trading activity on Rugplay" />
 </svelte:head>
 

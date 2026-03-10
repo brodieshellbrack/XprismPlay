@@ -433,8 +433,8 @@
 
 <SEO
 	title={profileData?.profile?.name
-		? `${profileData.profile.name} (@${profileData.profile.username}) - Rugplay`
-		: `@${username} - Rugplay`}
+		? `${profileData.profile.name} (@${profileData.profile.username}) - XprismPlay`
+		: `@${username} - XprismPlay`}
 	description={profileData?.profile?.bio
 		? `${profileData.profile.bio} - View ${profileData.profile.name}'s simulated trading activity and virtual portfolio in the Rugplay cryptocurrency simulation game.`
 		: `View @${username}'s profile and simulated trading activity in Rugplay - cryptocurrency trading simulation game platform.`}

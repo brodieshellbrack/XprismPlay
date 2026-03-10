@@ -268,7 +268,7 @@
 </script>
 
 <SEO
-	title="Leaderboard - Rugplay"
+	title="Leaderboard - XprismPlay"
 	description="View top performers in the Rugplay cryptocurrency simulation game. See rankings for biggest profits, losses, cash holders, and portfolio values in our virtual trading game."
 	keywords="crypto game leaderboard, trading simulation rankings, virtual portfolio rankings, crypto game winners"
 />

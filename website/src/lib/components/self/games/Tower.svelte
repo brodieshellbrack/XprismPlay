@@ -305,8 +305,7 @@
 						{/each}
 					</div>
 					<p class="text-muted-foreground mt-1 text-xs">
-						{twr_difficulty_config[difficulty].tiles - twr_difficulty_config[difficulty].bombs} safe
-						/
+						{twr_difficulty_config[difficulty].tiles - twr_difficulty_config[difficulty].bombs} safe /
 						{twr_difficulty_config[difficulty].tiles} tiles per floor
 					</p>
 				</div>

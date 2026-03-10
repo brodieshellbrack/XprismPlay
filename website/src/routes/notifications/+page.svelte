@@ -96,7 +96,7 @@
 </script>
 
 <SEO
-	title="Notifications - Rugplay"
+	title="Notifications - XprismPlay"
 	description="View your notifications and updates from Rugplay."
 />
 

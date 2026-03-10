@@ -126,7 +126,7 @@
 </script>
 
 <SEO
-	title="Prestige - Rugplay"
+	title="Prestige - XprismPlay"
 	description="Advance your trading status and reset your progress for prestige rewards in the Rugplay cryptocurrency simulation."
 	noindex={true}
 />

@@ -16,9 +16,13 @@ if (!publicEnv.PUBLIC_BETTER_AUTH_URL) throw new Error('PUBLIC_BETTER_AUTH_URL i
 export const auth = betterAuth({
 	//    baseURL: publicEnv.PUBLIC_BETTER_AUTH_URL,
 	secret: privateEnv.PRIVATE_BETTER_AUTH_SECRET,
-	appName: 'Rugplay',
+	appName: 'XprismPlay',
 
-	trustedOrigins: [publicEnv.PUBLIC_BETTER_AUTH_URL, 'http://rugplay.com', 'http://localhost:5173'],
+	trustedOrigins: [
+		publicEnv.PUBLIC_BETTER_AUTH_URL,
+		'http://xprismplay.dpdns.org',
+		'http://localhost:5173'
+	],
 
 	plugins: [
 		apiKey({

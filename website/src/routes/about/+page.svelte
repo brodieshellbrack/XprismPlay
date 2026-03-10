@@ -24,7 +24,7 @@
 <UserManualModal bind:open={showUserManual} />
 
 <svelte:head>
-	<title>About - Rugplay</title>
+	<title>About - XprismPlay</title>
 	<meta
 		name="description"
 		content="Learn about Rugplay - a realistic cryptocurrency trading simulation focusing on DeFi risks and mechanics."

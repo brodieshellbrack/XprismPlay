@@ -58,21 +58,21 @@
 	import { NEW_ACHIEVEMENTS_COUNT } from '$lib/stores/achievements';
 	import { ARCADE_STATS, fetchArcadeStats } from '$lib/stores/arcade-stats';
 	import { GEMS_BALANCE, fetchGemsBalance } from '$lib/stores/gems';
-
+	import { _ } from 'svelte-i18n';
 	const data = {
 		navMain: [
-			{ title: 'Home', url: '/', icon: Home03Icon },
-			{ title: 'Market', url: '/market', icon: Store01Icon },
-			{ title: 'Hopium', url: '/hopium', icon: ArrowUpDownIcon },
-			{ title: 'Arcade', url: '/arcade', icon: Joystick04Icon },
-			{ title: 'Leaderboard', url: '/leaderboard', icon: ChampionIcon },
+			{ title: $_('page_names.home'), url: '/', icon: Home03Icon },
+			{ title: $_('page_names.market'), url: '/market', icon: Store01Icon },
+			{ title: $_('page_names.hopium'), url: '/hopium', icon: ArrowUpDownIcon },
+			{ title: $_('page_names.arcade'), url: '/arcade', icon: Joystick04Icon },
+			{ title: $_('page_names.leaderboard'), url: '/leaderboard', icon: ChampionIcon },
 			{ title: 'Shop', url: '/shop', icon: ShoppingBasket01Icon },
-			{ title: 'Achievements', url: '/achievements', icon: Award05Icon },
-			{ title: 'Portfolio', url: '/portfolio', icon: Briefcase01Icon },
-			{ title: 'Treemap', url: '/treemap', icon: Analytics01Icon },
-			{ title: 'Create coin', url: '/coin/create', icon: Coins02Icon },
-			{ title: 'Notifications', url: '/notifications', icon: Notification01Icon },
-			{ title: 'About', url: '/about', icon: InformationCircleIcon }
+			{ title: $_('page_names.achievements'), url: '/achievements', icon: Award05Icon },
+			{ title: $_('page_names.portfolio'), url: '/portfolio', icon: Briefcase01Icon },
+			{ title: $_('page_names.treemap'), url: '/treemap', icon: Analytics01Icon },
+			{ title: $_('page_names.create_coin'), url: '/coin/create', icon: Coins02Icon },
+			{ title: $_('page_names.notifications'), url: '/notifications', icon: Notification01Icon },
+			{ title: $_('page_names.about'), url: '/about', icon: InformationCircleIcon }
 		]
 	};
 	type MenuButtonProps = HTMLAttributes<HTMLAnchorElement | HTMLButtonElement>;

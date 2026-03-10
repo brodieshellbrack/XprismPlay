@@ -375,7 +375,7 @@
 </script>
 
 <SEO
-	title="Settings - Rugplay"
+	title="Settings - XprismPlay"
 	description="Manage your Rugplay account settings, profile information, audio preferences, and privacy options."
 	keywords="game account settings, profile settings game, privacy settings, audio settings game"
 />

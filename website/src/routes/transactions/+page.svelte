@@ -226,7 +226,7 @@
 </script>
 
 <SEO
-	title="Transactions - Rugplay"
+	title="Transactions - XprismPlay"
 	description="View your complete trading history and transaction records in the Rugplay cryptocurrency simulation game."
 	noindex={true}
 	keywords="trading history game, transaction records simulator, crypto trading log, virtual trading history"

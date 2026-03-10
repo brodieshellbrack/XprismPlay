@@ -14,6 +14,7 @@
 	import { websocketController } from '$lib/stores/websocket';
 	import { dev } from '$app/environment';
 	import { RenderScan } from 'svelte-render-scan';
+	import { _ } from 'svelte-i18n';
 
 	let { data, children } = $props<{
 		data: { userSession?: any };
@@ -57,7 +58,7 @@
 			'color: #4962ee; font-family: monospace; font-size: 12px; font-weight: bold; text-shadow: 2px 2px rgba(0,0,0,0.2);'
 		);
 		console.log(
-			'%c Welcome to Rugplay! DO NOT FUCKING PASTE ANYTHING IN THE CONSOLE UNLESS YOU KNOW WHAT YOU ARE DOING.',
+			'%c Welcome to XprismPlay! DO NOT FUCKING PASTE ANYTHING IN THE CONSOLE UNLESS YOU KNOW WHAT YOU ARE DOING.',
 			'color: #4962ee; font-family: monospace; font-size: 12px; font-weight: bold; text-shadow: 2px 2px rgba(0,0,0,0.2);'
 		);
 		console.log(
@@ -81,20 +82,20 @@
 		if (!routeId) return 'Rugplay';
 
 		const titleMap: Record<string, string> = {
-			'/': 'Home',
-			'/market': 'Market',
-			'/portfolio': 'Portfolio',
-			'/leaderboard': 'Leaderboard',
-			'/coin/create': 'Create Coin',
-			'/settings': 'Settings',
-			'/admin': 'Admin',
-			'/admin/promo': 'Promo Codes',
-			'/transactions': 'Transactions',
-			'/hopium': 'Hopium',
-			'/arcade': 'Arcade',
-			'/live': 'Live Trades',
-			'/treemap': 'Treemap',
-			'/about': 'About',
+			'/': $_('page_names.home'),
+			'/market': $_('page_names.market'),
+			'/portfolio': $_('page_names.portfolio'),
+			'/leaderboard': $_('page_names.leaderboard'),
+			'/coin/create': $_('page_names.create_coin'),
+			'/settings': $_('page_names.settings'),
+			'/admin': $_('page_names.admin.main'),
+			'/admin/promo': $_('page_names.admin.promo'),
+			'/transactions': $_('page_names.transactions'),
+			'/hopium': $_('page_names.hopium'),
+			'/arcade': $_('page_names.arcade'),
+			'/live': $_('page_names.live_trades'),
+			'/treemap': $_('page_names.treemap'),
+			'/about': $_('page_names.about'),
 			'/legal/privacy': 'Privacy Policy',
 			'/legal/terms': 'Terms of Service',
 			'/shop': 'Shop'
