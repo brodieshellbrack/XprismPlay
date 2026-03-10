@@ -24,7 +24,7 @@
 <UserManualModal bind:open={showUserManual} />
 
 <svelte:head>
-	<title>About - Rugplay</title>
+	<title>About - XprismPlay</title>
 	<meta
 		name="description"
 		content="Learn about Rugplay - a realistic cryptocurrency trading simulation focusing on DeFi risks and mechanics."
@@ -168,9 +168,30 @@
 							Discord
 						</Button>
 					</div>
-					<p class="text-muted-foreground text-sm">Achievement icons by <a href="https://twitter.com/gvesster" target="_blank" rel="noopener" class="text-primary underline">gvstr</a></p>
-					<p class="text-muted-foreground text-sm">Chest animations by <a href="https://admurin.itch.io/" target="_blank" rel="noopener" class="text-primary underline">admurin</a></p>
-					<p class="text-muted-foreground text-sm">Halloween badge by <a href="https://www.flaticon.com/authors/smalllikeart" target="_blank" rel="noopener" class="text-primary underline">smalllikeart</a></p>
+					<p class="text-muted-foreground text-sm">
+						Achievement icons by <a
+							href="https://twitter.com/gvesster"
+							target="_blank"
+							rel="noopener"
+							class="text-primary underline">gvstr</a
+						>
+					</p>
+					<p class="text-muted-foreground text-sm">
+						Chest animations by <a
+							href="https://admurin.itch.io/"
+							target="_blank"
+							rel="noopener"
+							class="text-primary underline">admurin</a
+						>
+					</p>
+					<p class="text-muted-foreground text-sm">
+						Halloween badge by <a
+							href="https://www.flaticon.com/authors/smalllikeart"
+							target="_blank"
+							rel="noopener"
+							class="text-primary underline">smalllikeart</a
+						>
+					</p>
 				</div>
 			</CardContent>
 		</Card>

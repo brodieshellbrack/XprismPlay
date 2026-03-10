@@ -6,7 +6,7 @@
 		KnightShieldIcon,
 		Fire02Icon,
 		StarIcon,
-		Rocket01Icon,
+		Rocket01Icon
 	} from '@hugeicons/core-free-icons';
 	import { getPrestigeName, getPrestigeColor } from '$lib/utils';
 
@@ -22,12 +22,18 @@
 
 	let badgeClass = $derived(size === 'sm' ? 'text-xs' : '');
 	let prestigeName = $derived(user.prestigeLevel ? getPrestigeName(user.prestigeLevel) : null);
-	let prestigeColor = $derived(user.prestigeLevel ? getPrestigeColor(user.prestigeLevel) : 'text-gray-500');
+	let prestigeColor = $derived(
+		user.prestigeLevel ? getPrestigeColor(user.prestigeLevel) : 'text-gray-500'
+	);
 </script>
 
 <div class="flex items-center gap-1">
 	{#if showId}
-		<SilentBadge icon={HashtagIcon} class="text-muted-foreground {badgeClass}" text="#{user.id} to join" />
+		<SilentBadge
+			icon={HashtagIcon}
+			class="text-muted-foreground {badgeClass}"
+			text="#{user.id} to join"
+		/>
 	{/if}
 	{#if prestigeName}
 		<SilentBadge icon={StarIcon} text={prestigeName} class="{prestigeColor} {badgeClass}" />

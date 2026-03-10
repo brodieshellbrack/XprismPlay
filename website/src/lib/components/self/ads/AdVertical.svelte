@@ -57,7 +57,9 @@
 	<div
 		bind:this={adContainer}
 		class="ad-container sticky top-16 hidden overflow-hidden lg:block"
-		style="max-height: 800px; width: 160px; {adFailed ? 'min-height: 0; height: 0;' : 'min-height: 600px;'}"
+		style="max-height: 800px; width: 160px; {adFailed
+			? 'min-height: 0; height: 0;'
+			: 'min-height: 600px;'}"
 		aria-label="Advertisement"
 	>
 		<ins

@@ -5,7 +5,13 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Badge } from '$lib/components/ui/badge';
 	import { HugeiconsIcon } from '@hugeicons/svelte';
-	import { TradeUpIcon, TradeDownIcon, Loading03Icon, Coins01Icon, Dollar02Icon } from '@hugeicons/core-free-icons';
+	import {
+		TradeUpIcon,
+		TradeDownIcon,
+		Loading03Icon,
+		Coins01Icon,
+		Dollar02Icon
+	} from '@hugeicons/core-free-icons';
 	import { PORTFOLIO_SUMMARY } from '$lib/stores/portfolio-data';
 	import { toast } from 'svelte-sonner';
 	import { haptic } from '$lib/stores/haptics';
@@ -101,9 +107,8 @@
 
 		loading = true;
 		try {
-			const tradeAmount = (type === 'SELL' && sellByDollar)
-				? effectiveSellCoinAmount()
-				: numericAmount;
+			const tradeAmount =
+				type === 'SELL' && sellByDollar ? effectiveSellCoinAmount() : numericAmount;
 
 			const response = await fetch(`/api/coin/${coin.symbol}/trade`, {
 				method: 'POST',
@@ -177,7 +182,11 @@
 			<!-- Amount Input -->
 			<div class="space-y-2">
 				<Label for="amount">
-					{type === 'BUY' ? 'Amount to spend ($)' : (sellByDollar ? 'Dollar amount to receive ($)' : `Amount (${coin.symbol})`)}
+					{type === 'BUY'
+						? 'Amount to spend ($)'
+						: sellByDollar
+							? 'Dollar amount to receive ($)'
+							: `Amount (${coin.symbol})`}
 				</Label>
 				<div class="flex gap-2">
 					<Input
@@ -190,13 +199,24 @@
 						class="flex-1"
 					/>
 					{#if type === 'SELL'}
-						<Button variant="outline" size="icon" class="h-9 w-9 shrink-0" onclick={() => { haptic.trigger('selection'); sellByDollar = !sellByDollar; amount = ''; }}>
+						<Button
+							variant="outline"
+							size="icon"
+							class="h-9 w-9 shrink-0"
+							onclick={() => {
+								haptic.trigger('selection');
+								sellByDollar = !sellByDollar;
+								amount = '';
+							}}
+						>
 							{#key sellByDollar}
 								<HugeiconsIcon icon={sellByDollar ? Dollar02Icon : Coins01Icon} class="h-4 w-4" />
 							{/key}
 						</Button>
 					{/if}
-					<Button variant="outline" size="sm" class="h-9 shrink-0" onclick={setMaxAmount}>Max</Button>
+					<Button variant="outline" size="sm" class="h-9 shrink-0" onclick={setMaxAmount}
+						>Max</Button
+					>
 				</div>
 				{#if type === 'SELL'}
 					<p class="text-muted-foreground text-xs">
@@ -218,7 +238,11 @@
 				<div class="bg-muted/50 rounded-lg p-3">
 					<div class="flex items-center justify-between">
 						<span class="text-sm font-medium">
-							{type === 'BUY' ? `${coin.symbol} you'll get:` : (sellByDollar ? `${coin.symbol} to sell:` : "You'll receive:")}
+							{type === 'BUY'
+								? `${coin.symbol} you'll get:`
+								: sellByDollar
+									? `${coin.symbol} to sell:`
+									: "You'll receive:"}
 						</span>
 						<span class="font-bold">
 							{#if type === 'BUY'}

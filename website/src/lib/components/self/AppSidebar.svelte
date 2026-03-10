@@ -58,21 +58,21 @@
 	import { NEW_ACHIEVEMENTS_COUNT } from '$lib/stores/achievements';
 	import { ARCADE_STATS, fetchArcadeStats } from '$lib/stores/arcade-stats';
 	import { GEMS_BALANCE, fetchGemsBalance } from '$lib/stores/gems';
-
+	import { _ } from 'svelte-i18n';
 	const data = {
 		navMain: [
-			{ title: 'Home', url: '/', icon: Home03Icon },
-			{ title: 'Market', url: '/market', icon: Store01Icon },
-			{ title: 'Hopium', url: '/hopium', icon: ArrowUpDownIcon },
-			{ title: 'Arcade', url: '/arcade', icon: Joystick04Icon },
-			{ title: 'Leaderboard', url: '/leaderboard', icon: ChampionIcon },
+			{ title: $_('page_names.home'), url: '/', icon: Home03Icon },
+			{ title: $_('page_names.market'), url: '/market', icon: Store01Icon },
+			{ title: $_('page_names.hopium'), url: '/hopium', icon: ArrowUpDownIcon },
+			{ title: $_('page_names.arcade'), url: '/arcade', icon: Joystick04Icon },
+			{ title: $_('page_names.leaderboard'), url: '/leaderboard', icon: ChampionIcon },
 			{ title: 'Shop', url: '/shop', icon: ShoppingBasket01Icon },
-			{ title: 'Achievements', url: '/achievements', icon: Award05Icon },
-			{ title: 'Portfolio', url: '/portfolio', icon: Briefcase01Icon },
-			{ title: 'Treemap', url: '/treemap', icon: Analytics01Icon },
-			{ title: 'Create coin', url: '/coin/create', icon: Coins02Icon },
-			{ title: 'Notifications', url: '/notifications', icon: Notification01Icon },
-			{ title: 'About', url: '/about', icon: InformationCircleIcon }
+			{ title: $_('page_names.achievements'), url: '/achievements', icon: Award05Icon },
+			{ title: $_('page_names.portfolio'), url: '/portfolio', icon: Briefcase01Icon },
+			{ title: $_('page_names.treemap'), url: '/treemap', icon: Analytics01Icon },
+			{ title: $_('page_names.create_coin'), url: '/coin/create', icon: Coins02Icon },
+			{ title: $_('page_names.notifications'), url: '/notifications', icon: Notification01Icon },
+			{ title: $_('page_names.about'), url: '/about', icon: InformationCircleIcon }
 		]
 	};
 	type MenuButtonProps = HTMLAttributes<HTMLAnchorElement | HTMLButtonElement>;
@@ -154,6 +154,11 @@
 
 	function handlePromoCodesClick() {
 		goto('/admin/promo');
+		setOpenMobile(false);
+	}
+
+	function handleAdminLogsClick() {
+		goto('/admin/logs');
 		setOpenMobile(false);
 	}
 
@@ -385,13 +390,22 @@
 								</div>
 								<div class="flex justify-between">
 									<span>Coins:</span>
-									<span class="font-mono" style="color: #00ff0d">${formatCurrency($PORTFOLIO_SUMMARY.totalCoinValue)}</span
+									<span class="font-mono" style="color: #00ff0d"
+										>${formatCurrency($PORTFOLIO_SUMMARY.totalCoinValue)}</span
 									>
 								</div>
 								{#if $GEMS_BALANCE !== null}
 									<div class="flex justify-between">
 										<span>Gems:</span>
-										<span class="font-mono" style="color: #ca00ff"><HugeiconsIcon icon={GemIcon} size={14} strokeWidth={2} style="display: inline; vertical-align: middle; color: #ca00ff" /> {$GEMS_BALANCE.toLocaleString()}</span>
+										<span class="font-mono" style="color: #ca00ff"
+											><HugeiconsIcon
+												icon={GemIcon}
+												size={14}
+												strokeWidth={2}
+												style="display: inline; vertical-align: middle; color: #ca00ff"
+											/>
+											{$GEMS_BALANCE.toLocaleString()}</span
+										>
 									</div>
 								{/if}
 							</div>
@@ -518,6 +532,13 @@
 									>
 										<HugeiconsIcon icon={Ticket01Icon} class="text-primary" />
 										Manage codes
+									</DropdownMenu.Item>
+									<DropdownMenu.Item
+										onclick={handleAdminLogsClick}
+										class="text-primary hover:text-primary!"
+									>
+										<HugeiconsIcon icon={Shield01Icon} class="text-primary" />
+										Admin Logs
 									</DropdownMenu.Item>
 								</DropdownMenu.Group>
 							{/if}

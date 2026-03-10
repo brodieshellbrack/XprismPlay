@@ -106,12 +106,12 @@
 	$effect(() => {
 		if (coin?.isLocked && coin?.tradingUnlocksAt) {
 			const unlockTime = new Date(coin.tradingUnlocksAt).getTime();
-			
+
 			const updateCountdown = () => {
 				const now = Date.now();
 				const remaining = Math.max(0, Math.ceil((unlockTime - now) / 1000));
 				countdown = remaining;
-				
+
 				if (remaining === 0 && countdownInterval) {
 					clearInterval(countdownInterval);
 					countdownInterval = null;
@@ -120,7 +120,7 @@
 					}
 				}
 			};
-			
+
 			updateCountdown();
 			countdownInterval = setInterval(updateCountdown, 1000);
 		} else {
@@ -130,7 +130,7 @@
 				countdownInterval = null;
 			}
 		}
-		
+
 		return () => {
 			if (countdownInterval) {
 				clearInterval(countdownInterval);
@@ -256,7 +256,8 @@
 	}
 
 	async function loadOlderChartData() {
-		if (isLoadingHistory || noMoreHistory || !oldestTimestamp || !candlestickSeries || !chart) return;
+		if (isLoadingHistory || noMoreHistory || !oldestTimestamp || !candlestickSeries || !chart)
+			return;
 
 		isLoadingHistory = true;
 		try {
@@ -398,18 +399,20 @@
 				1
 			);
 
-			const processedChartData = chartData.map((candle: { open: any; close: any; high: number; low: number; }) => {
-				if (candle.open === candle.close) {
-					const basePrice = candle.open;
-					const variation = basePrice * 0.001;
-					return {
-						...candle,
-						high: Math.max(candle.high, basePrice + variation),
-						low: Math.min(candle.low, basePrice - variation)
-					};
+			const processedChartData = chartData.map(
+				(candle: { open: any; close: any; high: number; low: number }) => {
+					if (candle.open === candle.close) {
+						const basePrice = candle.open;
+						const variation = basePrice * 0.001;
+						return {
+							...candle,
+							high: Math.max(candle.high, basePrice + variation),
+							low: Math.min(candle.low, basePrice - variation)
+						};
+					}
+					return candle;
 				}
-				return candle;
-			});
+			);
 
 			candlestickSeries.setData(processedChartData);
 			volumeSeries.setData(generateVolumeData(chartData, volumeData));
@@ -514,13 +517,12 @@
 	let isCreator = $derived(coin && $USER_DATA && coin.creatorId === Number($USER_DATA.id));
 	let isTradingLocked = $derived(coin?.isLocked && countdown !== null && countdown > 0);
 	let canTrade = $derived(!isTradingLocked || isCreator);
-
 </script>
 
 <SEO
 	title={coin
-		? `${coin.name} (*${coin.symbol}) - Rugplay`
-		: `Loading ${coinSymbol.toUpperCase()} - Rugplay`}
+		? `${coin.name} (*${coin.symbol}) - XprismPlay`
+		: `Loading ${coinSymbol.toUpperCase()} - XprismPlay`}
 	description={coin
 		? `Trade ${coin.name} (*${coin.symbol}) in the Rugplay simulation game. Current price: $${formatPrice(coin.currentPrice)}, Market cap: ${formatMarketCap(coin.marketCap)}, 24h change: ${coin.change24h >= 0 ? '+' : ''}${coin.change24h.toFixed(2)}%.`
 		: `Virtual cryptocurrency trading page for ${coinSymbol.toUpperCase()} in the Rugplay simulation game.`}
@@ -615,7 +617,7 @@
 
 					<HoverCard.Root>
 						<HoverCard.Trigger
-							class="flex min-w-0 max-w-[200px] cursor-pointer items-center gap-1 rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-8 sm:max-w-[250px]"
+							class="flex max-w-[200px] min-w-0 cursor-pointer items-center gap-1 rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-8 sm:max-w-[250px]"
 							onclick={() => goto(`/user/${coin.creatorUsername}`)}
 						>
 							<Avatar.Root class="h-4 w-4 flex-shrink-0">
@@ -623,7 +625,7 @@
 								<Avatar.Fallback>{coin.creatorName.charAt(0)}</Avatar.Fallback>
 							</Avatar.Root>
 							<span class="block truncate font-medium"
-							><UserName name={coin.creatorName} nameColor={coin.creatorNameColor} /> (@{coin.creatorUsername})</span
+								><UserName name={coin.creatorName} nameColor={coin.creatorNameColor} /> (@{coin.creatorUsername})</span
 							>
 						</HoverCard.Trigger>
 						<HoverCard.Content class="w-80" side="bottom" sideOffset={3}>

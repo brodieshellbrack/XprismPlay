@@ -23,9 +23,10 @@
 			</p>
 			<p class="text-muted-foreground text-sm">
 				If you believe this is an error, <a
-					href="https://discord.gg/cKWNV2uZUP"
+					href="https://discord.gg/HKZ7EQEgaZ"
 					class="text-primary underline">please contact support</a
-				>. You can also email support at <b>support@xprismplay.dpdns.org</b> if you cannot access the discord.
+				>. You can also email support at <b>support@xprismplay.dpdns.org</b> if you cannot access the
+				discord.
 			</p>
 		</Card.Content>
 	</Card.Root>

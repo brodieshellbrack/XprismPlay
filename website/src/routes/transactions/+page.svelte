@@ -226,7 +226,7 @@
 </script>
 
 <SEO
-	title="Transactions - Rugplay"
+	title="Transactions - XprismPlay"
 	description="View your complete trading history and transaction records in the Rugplay cryptocurrency simulation game."
 	noindex={true}
 	keywords="trading history game, transaction records simulator, crypto trading log, virtual trading history"
@@ -242,11 +242,14 @@
 
 			<div class="mx-auto flex max-w-2xl items-center justify-center gap-2">
 				<div class="relative flex-1">
-					<HugeiconsIcon icon={Search01Icon} class="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+					<HugeiconsIcon
+						icon={Search01Icon}
+						class="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+					/>
 					<Input
 						bind:value={searchQuery}
 						placeholder="Search by coin name or symbol..."
-						class="pl-10 pr-4"
+						class="pr-4 pl-10"
 						onblur={updateSearchUrl}
 						onkeydown={handleSearchKeydown}
 					/>
@@ -391,7 +394,9 @@
 				</div>
 			{:else if transactions.length === 0}
 				<div class="py-12 text-center">
-					<div class="bg-muted mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+					<div
+						class="bg-muted mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full"
+					>
 						<HugeiconsIcon icon={Invoice03Icon} class="text-muted-foreground h-6 w-6" />
 					</div>
 					<h3 class="mb-2 text-lg font-semibold">No transactions found</h3>
@@ -423,7 +428,7 @@
 							{@const hasNote = tx.isTransfer && tx.note}
 							<!-- Main row -->
 							<Table.Row
-								class="hover:bg-muted/50 cursor-pointer select-none transition-colors"
+								class="hover:bg-muted/50 cursor-pointer transition-colors select-none"
 								onclick={() => toggleRow(tx.id)}
 							>
 								<!-- Type -->
@@ -449,7 +454,7 @@
 											onclick={(e) => e.stopPropagation()}
 										>
 											<CoinIcon icon={tx.coin.icon} symbol={tx.coin.symbol} size={6} />
-											<span class="font-medium max-w-44 truncate">*{tx.coin.symbol}</span>
+											<span class="max-w-44 truncate font-medium">*{tx.coin.symbol}</span>
 										</a>
 									{/if}
 								</Table.Cell>
@@ -487,7 +492,9 @@
 								</Table.Cell>
 								<!-- Total -->
 								<Table.Cell class="font-mono font-medium">
-									{tx.type === 'TRANSFER_IN' || tx.type === 'BUY' ? '+' : '-'}{formatValue(tx.totalBaseCurrencyAmount)}
+									{tx.type === 'TRANSFER_IN' || tx.type === 'BUY' ? '+' : '-'}{formatValue(
+										tx.totalBaseCurrencyAmount
+									)}
 								</Table.Cell>
 								<!-- Date -->
 								<Table.Cell class="text-muted-foreground text-sm">
@@ -497,7 +504,9 @@
 								<Table.Cell class="w-8 pr-3 text-right">
 									<HugeiconsIcon
 										icon={ArrowDown01Icon}
-										class="text-muted-foreground h-4 w-4 transition-transform duration-200 {isExpanded ? 'rotate-180' : ''} {hasNote ? '' : 'opacity-30'}"
+										class="text-muted-foreground h-4 w-4 transition-transform duration-200 {isExpanded
+											? 'rotate-180'
+											: ''} {hasNote ? '' : 'opacity-30'}"
 									/>
 								</Table.Cell>
 							</Table.Row>
@@ -506,11 +515,16 @@
 								<Table.Row class="bg-muted/30 hover:bg-muted/30">
 									<Table.Cell colspan={9} class="px-6 py-3">
 										<div class="flex items-start gap-2 text-sm">
-											<HugeiconsIcon icon={FileEditIcon} class="text-muted-foreground mt-0.5 h-4 w-4 shrink-0" />
+											<HugeiconsIcon
+												icon={FileEditIcon}
+												class="text-muted-foreground mt-0.5 h-4 w-4 shrink-0"
+											/>
 											{#if hasNote}
 												<p class="text-foreground whitespace-pre-wrap">{tx.note}</p>
 											{:else}
-												<p class="text-muted-foreground italic">No note attached to this transfer.</p>
+												<p class="text-muted-foreground italic">
+													No note attached to this transfer.
+												</p>
 											{/if}
 										</div>
 									</Table.Cell>

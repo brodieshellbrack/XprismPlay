@@ -1,12 +1,10 @@
 import { Webhooks } from '@polar-sh/sveltekit';
-import {
-	POLAR_WEBHOOK_SECRET,
-} from '$env/static/private';
+import { POLAR_WEBHOOK_SECRET } from '$env/static/private';
 import {
 	PUBLIC_POLAR_PRODUCT_GEMS_500,
 	PUBLIC_POLAR_PRODUCT_GEMS_1300,
 	PUBLIC_POLAR_PRODUCT_GEMS_2800,
-	PUBLIC_POLAR_PRODUCT_GEMS_8000,
+	PUBLIC_POLAR_PRODUCT_GEMS_8000
 } from '$env/static/public';
 import { db } from '$lib/server/db';
 import { user, gemTransactions } from '$lib/server/db/schema';
@@ -16,14 +14,14 @@ const PRODUCT_GEMS_MAP: Record<string, number> = {
 	[PUBLIC_POLAR_PRODUCT_GEMS_500]: 500,
 	[PUBLIC_POLAR_PRODUCT_GEMS_1300]: 1300,
 	[PUBLIC_POLAR_PRODUCT_GEMS_2800]: 2800,
-	[PUBLIC_POLAR_PRODUCT_GEMS_8000]: 8000,
+	[PUBLIC_POLAR_PRODUCT_GEMS_8000]: 8000
 };
 
 const PRODUCT_USD_MAP: Record<string, number> = {
 	[PUBLIC_POLAR_PRODUCT_GEMS_500]: 199,
 	[PUBLIC_POLAR_PRODUCT_GEMS_1300]: 499,
 	[PUBLIC_POLAR_PRODUCT_GEMS_2800]: 999,
-	[PUBLIC_POLAR_PRODUCT_GEMS_8000]: 2499,
+	[PUBLIC_POLAR_PRODUCT_GEMS_8000]: 2499
 };
 
 export const POST = Webhooks({
@@ -33,8 +31,7 @@ export const POST = Webhooks({
 		const polarOrderId = order.id;
 
 		const rawId =
-			(order.metadata as Record<string, unknown> | null)?.userId ??
-			order.customer?.externalId;
+			(order.metadata as Record<string, unknown> | null)?.userId ?? order.customer?.externalId;
 
 		if (!rawId) {
 			console.error('[Polar Webhook] No userId on order:', polarOrderId);
@@ -58,7 +55,7 @@ export const POST = Webhooks({
 
 		const existingUser = await db.query.user.findFirst({
 			where: eq(user.id, userId),
-			columns: { id: true, gems: true },
+			columns: { id: true, gems: true }
 		});
 
 		if (!existingUser) {
@@ -83,11 +80,13 @@ export const POST = Webhooks({
 				.set({
 					gems: sql`${user.gems} + ${gemsAmount}`,
 					founderBadge: true,
-					updatedAt: new Date(),
+					updatedAt: new Date()
 				})
 				.where(eq(user.id, userId));
 
-			console.log(`[Polar Webhook] Credited ${gemsAmount} gems ($${(usdAmount / 100).toFixed(2)}) to user ${userId}, founderBadge set. Order: ${polarOrderId}`);
+			console.log(
+				`[Polar Webhook] Credited ${gemsAmount} gems ($${(usdAmount / 100).toFixed(2)}) to user ${userId}, founderBadge set. Order: ${polarOrderId}`
+			);
 		});
-	},
+	}
 });

@@ -60,8 +60,8 @@
 	});
 </script>
 
-<SEO 
-	title="Arcade - Rugplay"
+<SEO
+	title="Arcade - XprismPlay"
 	description="Play virtual arcade games with simulated currency in Rugplay. Try coinflip, slots, and mines games using virtual money with no real-world value - purely for entertainment."
 	keywords="virtual arcade simulation, coinflip game, slots game, mines game, virtual arcade, simulated games, entertainment games"
 />
@@ -119,7 +119,10 @@
 					<div class="space-y-3">
 						{#if filteredActivities.length === 0}
 							<div class="flex flex-col items-center justify-center py-8 text-center">
-								<HugeiconsIcon icon={PiggyBankIcon} class="text-muted-foreground/50 mb-4 h-12 w-12" />
+								<HugeiconsIcon
+									icon={PiggyBankIcon}
+									class="text-muted-foreground/50 mb-4 h-12 w-12"
+								/>
 								<h3 class="mb-2 text-base font-semibold">Waiting for activity...</h3>
 								<p class="text-muted-foreground text-sm">
 									High stakes arcade activity will appear here in real-time.
@@ -153,7 +156,9 @@
 											</HoverCard.Content>
 										</HoverCard.Root>
 
-										<span class="text-muted-foreground text-sm">{activity.won ? 'won' : 'lost'}</span>
+										<span class="text-muted-foreground text-sm"
+											>{activity.won ? 'won' : 'lost'}</span
+										>
 										<span
 											class="font-mono text-sm font-medium {activity.won
 												? 'text-green-500'
@@ -166,7 +171,8 @@
 
 									<div class="text-muted-foreground flex items-center gap-1 text-xs">
 										<HugeiconsIcon icon={Clock01Icon} class="h-3 w-3" />
-										<span class="font-mono">{formatRelativeTime(new Date(activity.timestamp))}</span>
+										<span class="font-mono">{formatRelativeTime(new Date(activity.timestamp))}</span
+										>
 									</div>
 								</div>
 							{/each}

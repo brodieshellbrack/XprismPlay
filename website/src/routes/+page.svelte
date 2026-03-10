@@ -12,7 +12,7 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import AdLong from '$lib/components/self/ads/AdLong.svelte';
-
+	import { _ } from 'svelte-i18n';
 	let shouldSignIn = $state(false);
 	let coins = $state<any[]>([]);
 	let loading = $state(true);
@@ -36,7 +36,7 @@
 	const marketColumns = [
 		{
 			key: 'name',
-			label: 'Name',
+			label: $_('global.name'),
 			class: 'font-medium',
 			render: (value: any, row: any) => {
 				return {
@@ -50,12 +50,12 @@
 		},
 		{
 			key: 'price',
-			label: 'Price',
+			label: $_('global.price'),
 			render: (value: any) => `$${formatPrice(value)}`
 		},
 		{
 			key: 'change24h',
-			label: '24h Change',
+			label: $_('coin.24hchange'),
 			render: (value: any) => ({
 				component: 'badge',
 				variant: value >= 0 ? 'success' : 'destructive',
@@ -64,21 +64,21 @@
 		},
 		{
 			key: 'marketCap',
-			label: 'Market Cap',
+			label: $_('coin.marketcap'),
 			render: (value: any) => formatMarketCap(value)
 		},
 		{
 			key: 'volume24h',
-			label: 'Volume (24h)',
+			label: $_('coin.volume24h'),
 			render: (value: any) => formatMarketCap(value)
 		}
 	];
 </script>
 
 <SEO
-	title="Rugplay"
-	description="A realistic crypto trading simulator that lets you experience the risks and mechanics of decentralized exchanges without real financial consequences. Create coins, trade with liquidity pools, and learn about 'rug pulls' in a... relatively safe environment :)"
-	keywords="crypto simulation game, trading practice game, rug pull simulation, virtual cryptocurrency game"
+    title="XprismPlay"
+    description="A realistic crypto trading simulator based on Rugplay that lets you experience the risks and mechanics of decentralized exchanges without real financial consequences. Create coins, trade with liquidity pools, and learn about 'rug pulls' in a... relatively safe environment :)"
+    keywords="crypto simulation game, trading practice game, rug pull simulation, virtual cryptocurrency game"
 />
 
 <SignInConfirmDialog bind:open={shouldSignIn} />
@@ -86,17 +86,20 @@
 <div class="container mx-auto p-6">
 	<header class="mb-8">
 		<h1 class="mb-2 truncate text-3xl font-bold">
-			{$USER_DATA ? getTimeBasedGreeting($USER_DATA?.name) : 'Welcome to Rugplay!'}
+			{$USER_DATA
+				? $_('greetings.' + getTimeBasedGreeting())?.replace('{{name}}', $USER_DATA.name)
+				: $_('main.title')}
 		</h1>
 		<p class="text-muted-foreground">
 			{#if $USER_DATA}
-				Here's the market overview for today.
+				{$_('main.description')}
 			{:else}
-				You need to <button
+				{$_('sign_in.message.0')}
+				<button
 					class="text-primary underline hover:cursor-pointer"
-					onclick={() => (shouldSignIn = !shouldSignIn)}>sign in</button
+					onclick={() => (shouldSignIn = !shouldSignIn)}>{$_('sign_in.message.1')}</button
 				>
-				to play.
+				{$_('sign_in.message.2')}
 			{/if}
 		</p>
 	</header>
@@ -143,7 +146,7 @@
 		<AdLong />
 
 		<div class="mt-12">
-			<h2 class="mb-4 text-2xl font-bold">Market Overview</h2>
+			<h2 class="mb-4 text-2xl font-bold">{$_('main.market_overview')}</h2>
 			<Card.Root>
 				<Card.Content>
 					<DataTable

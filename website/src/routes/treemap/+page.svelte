@@ -11,7 +11,7 @@
 		Activity01Icon,
 		Analytics01Icon,
 		ChartColumnIcon,
-		FullScreenIcon,
+		FullScreenIcon
 	} from '@hugeicons/core-free-icons';
 	import { formatValue } from '$lib/utils';
 	import { allTradesStore } from '$lib/stores/websocket';
@@ -208,8 +208,8 @@
 	});
 </script>
 
-<SEO 
-	title="Treemap - Rugplay"
+<SEO
+	title="Treemap - XprismPlay"
 	description="Interactive virtual cryptocurrency market treemap visualization. View simulated market cap and 24h price changes for all coins in our trading game's visual treemap format."
 	keywords="virtual cryptocurrency treemap, market visualization game, crypto market cap simulation, price changes game, market analysis simulator"
 />

@@ -308,7 +308,9 @@
 
 			<!-- Optional Note -->
 			<div class="space-y-2">
-				<Label for="note">Note <span class="text-muted-foreground font-normal">(optional)</span></Label>
+				<Label for="note"
+					>Note <span class="text-muted-foreground font-normal">(optional)</span></Label
+				>
 				<Textarea
 					id="note"
 					bind:value={note}
@@ -316,7 +318,11 @@
 					class="resize-none text-sm"
 					rows={3}
 				/>
-				<p class="text-end text-xs {noteCharCount > 500 ? 'text-destructive font-medium' : 'text-muted-foreground'}">
+				<p
+					class="text-end text-xs {noteCharCount > 500
+						? 'text-destructive font-medium'
+						: 'text-muted-foreground'}"
+				>
 					{noteCharCount}/500
 				</p>
 			</div>

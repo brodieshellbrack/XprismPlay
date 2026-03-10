@@ -32,18 +32,18 @@
 	}
 
 	onMount(() => {
-		loadInitialTrades("expanded");
-	})
+		loadInitialTrades('expanded');
+	});
 </script>
 
-<SEO 
-	title="Live Trades - Rugplay"
+<SEO
+	title="Live Trades - XprismPlay"
 	description="Watch real-time virtual cryptocurrency trading activity in the Rugplay simulation game. See live trades, user activity, and market movements as they happen."
 	keywords="live crypto trades game, real-time trading simulation, virtual trading activity, crypto game stream"
 />
 
 <svelte:head>
-	<title>Live Trades - Rugplay</title>
+	<title>Live Trades - XprismPlay</title>
 	<meta name="description" content="Real-time cryptocurrency trading activity on Rugplay" />
 </svelte:head>
 
@@ -77,7 +77,10 @@
 					<LiveTradeSkeleton />
 				{:else if $allTradesStore.length === 0}
 					<div class="flex flex-col items-center justify-center py-12 text-center sm:py-16">
-						<HugeiconsIcon icon={Activity01Icon} class="text-muted-foreground/50 mb-4 h-12 w-12 sm:h-16 sm:w-16" />
+						<HugeiconsIcon
+							icon={Activity01Icon}
+							class="text-muted-foreground/50 mb-4 h-12 w-12 sm:h-16 sm:w-16"
+						/>
 						<h3 class="mb-2 text-base font-semibold sm:text-lg">Waiting for trades...</h3>
 						<p class="text-muted-foreground text-sm sm:text-base">
 							All trades will appear here in real-time.
@@ -171,19 +174,28 @@
 							<div class="flex items-center justify-between gap-2">
 								<div class="flex items-center gap-2 font-mono text-xs sm:text-sm">
 									{#if trade.type === 'TRANSFER_IN' || trade.type === 'TRANSFER_OUT'}
-										<HugeiconsIcon icon={Activity01Icon} class="h-3.5 w-3.5 text-blue-500 sm:h-4 sm:w-4" />
+										<HugeiconsIcon
+											icon={Activity01Icon}
+											class="h-3.5 w-3.5 text-blue-500 sm:h-4 sm:w-4"
+										/>
 										<span class="text-blue-500">
 											{trade.type === 'TRANSFER_IN' ? 'RECEIVED' : 'SENT'}
 										</span>
 										<span class="text-muted-foreground">|</span>
 										<span>{formatValue(trade.totalValue)}</span>
 									{:else if trade.type === 'BUY'}
-										<HugeiconsIcon icon={TradeUpIcon} class="h-3.5 w-3.5 text-green-500 sm:h-4 sm:w-4" />
+										<HugeiconsIcon
+											icon={TradeUpIcon}
+											class="h-3.5 w-3.5 text-green-500 sm:h-4 sm:w-4"
+										/>
 										<span class="text-green-500">BUY</span>
 										<span class="text-muted-foreground">|</span>
 										<span>{formatValue(trade.totalValue)}</span>
 									{:else}
-										<HugeiconsIcon icon={TradeDownIcon} class="h-3.5 w-3.5 text-red-500 sm:h-4 sm:w-4" />
+										<HugeiconsIcon
+											icon={TradeDownIcon}
+											class="h-3.5 w-3.5 text-red-500 sm:h-4 sm:w-4"
+										/>
 										<span class="text-red-500">SELL</span>
 										<span class="text-muted-foreground">|</span>
 										<span>{formatValue(trade.totalValue)}</span>
@@ -194,7 +206,7 @@
 									class="text-muted-foreground flex items-center gap-1 text-xs sm:gap-1 sm:text-sm"
 								>
 									<HugeiconsIcon icon={Clock01Icon} class="h-3 w-3 sm:h-4 sm:w-4" />
-									<span class="whitespace-nowrap font-mono"
+									<span class="font-mono whitespace-nowrap"
 										>{formatRelativeTime(new Date(trade.timestamp))}</span
 									>
 								</div>

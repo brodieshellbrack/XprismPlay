@@ -15,7 +15,7 @@ export const GET: RequestHandler = async (event) => {
 
 	const polar = new Polar({
 		accessToken: POLAR_ACCESS_TOKEN,
-		server: process.env.NODE_ENV === 'production' ? 'production' : 'sandbox',
+		server: process.env.NODE_ENV === 'production' ? 'production' : 'sandbox'
 	});
 
 	const userId = session.id;
@@ -25,7 +25,7 @@ export const GET: RequestHandler = async (event) => {
 		successUrl: `${origin}/shop?success=true&checkoutId={CHECKOUT_ID}`,
 		externalCustomerId: userId,
 		customerEmail: session.email ?? undefined,
-		metadata: { userId },
+		metadata: { userId }
 	});
 
 	throw redirect(302, result.url);

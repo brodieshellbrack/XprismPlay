@@ -21,7 +21,7 @@
 	import SEO from '$lib/components/self/SEO.svelte';
 	import SignInConfirmDialog from '$lib/components/self/SignInConfirmDialog.svelte';
 	import ProfileBadges from '$lib/components/self/ProfileBadges.svelte';
-		import PrestigeSkeleton from '$lib/components/self/skeletons/PrestigeSkeleton.svelte';
+	import PrestigeSkeleton from '$lib/components/self/skeletons/PrestigeSkeleton.svelte';
 	import { haptic } from '$lib/stores/haptics';
 
 	let isPrestiging = $state(false);
@@ -126,7 +126,7 @@
 </script>
 
 <SEO
-	title="Prestige - Rugplay"
+	title="Prestige - XprismPlay"
 	description="Advance your trading status and reset your progress for prestige rewards in the Rugplay cryptocurrency simulation."
 	noindex={true}
 />
@@ -260,7 +260,8 @@
 								<div>
 									<p class="font-medium">Gain Status</p>
 									<p class="text-muted-foreground text-sm">
-										Earn an exclusive prestige title, enhanced daily rewards, and reset your daily reward cooldown (streak preserved)
+										Earn an exclusive prestige title, enhanced daily rewards, and reset your daily
+										reward cooldown (streak preserved)
 									</p>
 								</div>
 							</div>
@@ -396,7 +397,17 @@
 										<div class="flex min-w-0 items-center gap-2">
 											<h4 class="truncate text-sm font-medium">{userData.name}</h4>
 											<ProfileBadges
-												user={{...userData, id: parseInt(userData.id), prestigeLevel: currentPrestige, createdAt: new Date(), totalPortfolioValue: totalValue, loginStreak: 0, halloweenBadge2025: false, arcadeWins: 0, arcadeLosses: 0} as any}
+												user={{
+													...userData,
+													id: parseInt(userData.id),
+													prestigeLevel: currentPrestige,
+													createdAt: new Date(),
+													totalPortfolioValue: totalValue,
+													loginStreak: 0,
+													halloweenBadge2025: false,
+													arcadeWins: 0,
+													arcadeLosses: 0
+												} as any}
 												showId={false}
 												size="sm"
 											/>
@@ -422,7 +433,17 @@
 										<div class="flex min-w-0 items-center gap-2">
 											<h4 class="truncate text-sm font-medium">{userData.name}</h4>
 											<ProfileBadges
-												user={{...userData, id: parseInt(userData.id), prestigeLevel: nextPrestige, createdAt: new Date(), totalPortfolioValue: totalValue, loginStreak: 0, halloweenBadge2025: false, arcadeWins: 0, arcadeLosses: 0} as any}
+												user={{
+													...userData,
+													id: parseInt(userData.id),
+													prestigeLevel: nextPrestige,
+													createdAt: new Date(),
+													totalPortfolioValue: totalValue,
+													loginStreak: 0,
+													halloweenBadge2025: false,
+													arcadeWins: 0,
+													arcadeLosses: 0
+												} as any}
 												showId={false}
 												size="sm"
 											/>

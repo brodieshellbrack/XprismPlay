@@ -260,7 +260,7 @@
 </script>
 
 <SEO
-	title="Market - Rugplay"
+	title="Market - XprismPlay"
 	description="Discover and trade virtual cryptocurrencies in our simulation game. Browse all available simulated coins, filter by price and performance, and more."
 	keywords="virtual cryptocurrency market, crypto trading game, coin discovery simulation, market analysis game, trading practice"
 />
@@ -275,11 +275,14 @@
 
 			<div class="mx-auto flex max-w-2xl items-center justify-center gap-2">
 				<div class="relative flex-1">
-					<HugeiconsIcon icon={Search01Icon} class="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+					<HugeiconsIcon
+						icon={Search01Icon}
+						class="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+					/>
 					<Input
 						bind:value={searchQuery}
 						placeholder="Search coins by name or symbol..."
-						class="pl-10 pr-4"
+						class="pr-4 pl-10"
 						onblur={updateSearchUrl}
 						onkeydown={handleSearchKeydown}
 					/>
@@ -463,7 +466,7 @@
 							<div class="flex items-center gap-3">
 								<CoinIcon icon={coin.icon} symbol={coin.symbol} size={8} />
 								<div>
-									<h3 class="truncate max-w-44 text-lg font-semibold leading-tight">{coin.name}</h3>
+									<h3 class="max-w-44 truncate text-lg leading-tight font-semibold">{coin.name}</h3>
 									<p class="text-muted-foreground truncate text-sm">*{coin.symbol}</p>
 								</div>
 							</div>

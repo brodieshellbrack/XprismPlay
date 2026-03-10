@@ -25,7 +25,7 @@
 		const live = $adminLogStore;
 		const merged = [...live];
 		for (const log of historicalLogs) {
-			if (!merged.find(l => l.id === log.id)) {
+			if (!merged.find((l) => l.id === log.id)) {
 				merged.push(log);
 			}
 		}
@@ -54,28 +54,42 @@
 
 	function actionLabel(action: AdminLogEntry['action']) {
 		switch (action) {
-			case 'BAN': return 'Ban';
-			case 'UNBAN': return 'Unban';
-			case 'PROMO_CREATE': return 'Promo Created';
-			case 'PROMO_DELETE': return 'Promo Deleted';
+			case 'BAN':
+				return 'Ban';
+			case 'UNBAN':
+				return 'Unban';
+			case 'PROMO_CREATE':
+				return 'Promo Created';
+			case 'PROMO_DELETE':
+				return 'Promo Deleted';
 		}
 	}
 
 	function actionIcon(action: AdminLogEntry['action']) {
 		switch (action) {
-			case 'BAN': return LegalHammerIcon;
-			case 'UNBAN': return UserCheck01Icon;
-			case 'PROMO_CREATE': return Ticket01Icon;
-			case 'PROMO_DELETE': return Cancel01Icon;
+			case 'BAN':
+				return LegalHammerIcon;
+			case 'UNBAN':
+				return UserCheck01Icon;
+			case 'PROMO_CREATE':
+				return Ticket01Icon;
+			case 'PROMO_DELETE':
+				return Cancel01Icon;
 		}
 	}
 
-	function actionVariant(action: AdminLogEntry['action']): 'default' | 'secondary' | 'destructive' | 'outline' {
+	function actionVariant(
+		action: AdminLogEntry['action']
+	): 'default' | 'secondary' | 'destructive' | 'outline' {
 		switch (action) {
-			case 'BAN': return 'destructive';
-			case 'UNBAN': return 'default';
-			case 'PROMO_CREATE': return 'secondary';
-			case 'PROMO_DELETE': return 'outline';
+			case 'BAN':
+				return 'destructive';
+			case 'UNBAN':
+				return 'default';
+			case 'PROMO_CREATE':
+				return 'secondary';
+			case 'PROMO_DELETE':
+				return 'outline';
 		}
 	}
 
@@ -110,10 +124,12 @@
 			</div>
 			<div>
 				<h1 class="text-2xl font-bold tracking-tight">Admin Logs</h1>
-				<p class="text-muted-foreground text-sm flex items-center gap-1">
+				<p class="text-muted-foreground flex items-center gap-1 text-sm">
 					<span class="relative flex h-2 w-2">
-						<span class="bg-green-400 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
-						<span class="bg-green-500 relative inline-flex h-2 w-2 rounded-full"></span>
+						<span
+							class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"
+						></span>
+						<span class="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
 					</span>
 					Live — new actions appear instantly
 				</p>
@@ -126,7 +142,7 @@
 					<div class="space-y-0 divide-y">
 						{#each Array(8) as _}
 							<div class="flex items-start gap-4 p-4">
-								<Skeleton class="h-8 w-8 rounded-full flex-shrink-0" />
+								<Skeleton class="h-8 w-8 flex-shrink-0 rounded-full" />
 								<div class="flex-1 space-y-2">
 									<Skeleton class="h-4 w-48" />
 									<Skeleton class="h-3 w-72" />
@@ -143,8 +159,10 @@
 				{:else}
 					<div class="divide-y">
 						{#each allLogs as log (log.id)}
-							<div class="flex items-start gap-4 p-4 hover:bg-muted/30 transition-colors">
-								<div class="bg-muted flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full">
+							<div class="hover:bg-muted/30 flex items-start gap-4 p-4 transition-colors">
+								<div
+									class="bg-muted flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
+								>
 									<HugeiconsIcon icon={actionIcon(log.action)} class="h-4 w-4" />
 								</div>
 								<div class="min-w-0 flex-1 space-y-1">
@@ -164,10 +182,7 @@
 										{#if log.targetUserId && log.targetUsername}
 											<span class="text-muted-foreground text-sm">
 												→
-												<a
-													href="/user/{log.targetUserId}"
-													class="font-medium hover:underline"
-												>
+												<a href="/user/{log.targetUserId}" class="font-medium hover:underline">
 													@{log.targetUsername}
 												</a>
 											</span>
@@ -185,11 +200,8 @@
 					</div>
 
 					{#if hasMore}
-						<div class="p-4 text-center border-t">
-							<button
-								onclick={() => loadLogs()}
-								class="text-primary text-sm hover:underline"
-							>
+						<div class="border-t p-4 text-center">
+							<button onclick={() => loadLogs()} class="text-primary text-sm hover:underline">
 								Load more
 							</button>
 						</div>

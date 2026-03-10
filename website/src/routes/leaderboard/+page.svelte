@@ -268,7 +268,7 @@
 </script>
 
 <SEO
-	title="Leaderboard - Rugplay"
+	title="Leaderboard - XprismPlay"
 	description="View top performers in the Rugplay cryptocurrency simulation game. See rankings for biggest profits, losses, cash holders, and portfolio values in our virtual trading game."
 	keywords="crypto game leaderboard, trading simulation rankings, virtual portfolio rankings, crypto game winners"
 />
@@ -282,7 +282,8 @@
 			</div>
 			<div class="flex items-center gap-4">
 				<div class="relative flex flex-grow items-center">
-					<HugeiconsIcon icon={Search01Icon} size={16} class="pointer-events-none absolute left-3"></HugeiconsIcon>
+					<HugeiconsIcon icon={Search01Icon} size={16} class="pointer-events-none absolute left-3"
+					></HugeiconsIcon>
 					<Input
 						type="text"
 						placeholder="Search by username..."
@@ -351,7 +352,7 @@
 											<div class="flex flex-grow flex-col">
 												<div class="flex items-center gap-2">
 													<h4 class="max-w-[150px] truncate text-sm font-semibold sm:max-w-[200px]">
-															<UserName name={user.name} nameColor={user.nameColor} />
+														<UserName name={user.name} nameColor={user.nameColor} />
 													</h4>
 													<ProfileBadges {user} showId={true} size="sm" />
 												</div>
@@ -378,7 +379,10 @@
 													</div>
 												</div>
 												<div class="mt-2 flex items-center gap-2">
-													<HugeiconsIcon icon={Calendar01Icon} class="text-muted-foreground h-4 w-4" />
+													<HugeiconsIcon
+														icon={Calendar01Icon}
+														class="text-muted-foreground h-4 w-4"
+													/>
 													<p class="text-muted-foreground text-xs">
 														Joined {new Date(user.createdAt).toLocaleDateString('en-US', {
 															year: 'numeric',
