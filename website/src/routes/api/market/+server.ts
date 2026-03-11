@@ -38,7 +38,7 @@ const CHANGE_THRESHOLDS = {
 
 export async function GET({ url }) {
 	const searchQuery = url.searchParams.get('search') || '';
-	const sortBy = url.searchParams.get('sortBy') || 'marketCap';
+	const sortBy = url.searchParams.get('sortBy') || 'currentPrice';
 	const sortOrder = url.searchParams.get('sortOrder') || 'desc';
 	const priceFilter = url.searchParams.get('priceFilter') || 'all';
 	const changeFilter = url.searchParams.get('changeFilter') || 'all';
@@ -124,7 +124,7 @@ export async function GET({ url }) {
 				case 'createdAt':
 					return coin.createdAt;
 				default:
-					return coin.marketCap; // fallback
+					return coin.currentPrice; // fallback
 			}
 		})();
 

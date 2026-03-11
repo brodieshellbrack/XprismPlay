@@ -89,7 +89,7 @@
 			url.searchParams.delete('search');
 		}
 
-		if (sortBy !== 'marketCap') {
+		if (sortBy !== 'currentPrice') {
 			url.searchParams.set('sortBy', sortBy);
 		} else {
 			url.searchParams.delete('sortBy');
@@ -204,7 +204,7 @@
 
 	function resetFilters() {
 		searchQuery = '';
-		sortBy = 'marketCap';
+		sortBy = 'currentPrice';
 		sortOrder = 'desc';
 		priceFilter = 'all';
 		changeFilter = 'all';
@@ -233,7 +233,7 @@
 		searchQuery !== '' ||
 			priceFilter !== 'all' ||
 			changeFilter !== 'all' ||
-			sortBy !== 'marketCap' ||
+			sortBy !== 'currentPrice' ||
 			sortOrder !== 'desc'
 	);
 
@@ -303,18 +303,18 @@
 								<Label class="text-sm font-medium">{$_('market.search.filters.sort_by')}</Label>
 								<div class="grid grid-cols-2 gap-2">
 									<Button
-										variant={sortBy === 'marketCap' ? 'default' : 'outline'}
-										size="sm"
-										onclick={() => handleSortChange('marketCap')}
-									>
-										{$_('market.search.filters.marketcap')}
-									</Button>
-									<Button
 										variant={sortBy === 'currentPrice' ? 'default' : 'outline'}
 										size="sm"
 										onclick={() => handleSortChange('currentPrice')}
 									>
 										{$_('market.search.filters.price')}
+									</Button>
+									<Button
+										variant={sortBy === 'marketCap' ? 'default' : 'outline'}
+										size="sm"
+										onclick={() => handleSortChange('marketCap')}
+									>
+										{$_('market.search.filters.marketcap')}
 									</Button>
 									<Button
 										variant={sortBy === 'change24h' ? 'default' : 'outline'}

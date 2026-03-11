@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ url }): Promise<{ filters: MarketFi
 	return {
 		filters: {
 			searchQuery: url.searchParams.get('search') || '',
-			sortBy: url.searchParams.get('sortBy') || 'marketCap',
+			sortBy: url.searchParams.get('sortBy') || 'currentPrice',
 			sortOrder: url.searchParams.get('sortOrder') || 'desc',
 			priceFilter: url.searchParams.get('priceFilter') || 'all',
 			changeFilter: url.searchParams.get('changeFilter') || 'all',

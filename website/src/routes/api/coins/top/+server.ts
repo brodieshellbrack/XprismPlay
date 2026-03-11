@@ -17,7 +17,7 @@ export async function GET() {
 			})
 			.from(coin)
 			.where(eq(coin.isListed, true))
-			.orderBy(desc(coin.marketCap))
+			.orderBy(desc(coin.currentPrice))
 			.limit(50);
 
 		const formattedCoins = coins.map((c) => ({

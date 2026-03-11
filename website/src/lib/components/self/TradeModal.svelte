@@ -167,6 +167,8 @@
 			} else {
 				amount = maxSellableAmount.toString();
 			}
+		} else if (type === 'BURN') {
+			amount = userHolding
 		} else if ($PORTFOLIO_SUMMARY) {
 			amount = userBalance.toString();
 		}
@@ -180,9 +182,12 @@
 				{#if type === 'BUY'}
 					<HugeiconsIcon icon={TradeUpIcon} class="h-5 w-5 text-green-500" />
 					Buy {coin.symbol}
-				{:else}
+				{:else if type === 'SELL'}
 					<HugeiconsIcon icon={TradeDownIcon} class="h-5 w-5 text-red-500" />
 					Sell {coin.symbol}
+				{:else}
+					<HugeiconsIcon icon={TradeDownIcon} class="h-5 w-5 text-red-500" />
+					Burn {coin.symbol}
 				{/if}
 			</Dialog.Title>
 			<Dialog.Description>
@@ -237,6 +242,12 @@
 						{#if maxSellableAmount < userHolding}
 							<br />Max sellable: {maxSellableAmount.toFixed(0)} {coin.symbol} (pool limit)
 						{/if}
+					</p>
+				{:else if type === 'BURN'}
+
+					<p class="text-muted-foreground text-xs">
+						Available: {userHolding.toFixed(6)}
+						{coin.symbol}
 					</p>
 				{:else if $PORTFOLIO_SUMMARY}
 					<p class="text-muted-foreground text-xs">
