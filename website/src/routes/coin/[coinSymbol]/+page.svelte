@@ -549,7 +549,7 @@
 		onSuccess={handleTradeSuccess}
 	/>
 	<!-- (marking here with a change for my development later) -->
-		<TradeModal
+	<TradeModal
 		bind:open={burnModalOpen}
 		type="BURN"
 		{coin}

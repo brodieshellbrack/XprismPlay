@@ -44,7 +44,11 @@ export default {
 		create_coin: 'Criar Moeda',
 		notifications: 'Notificações',
 		about: 'Sobre',
-		live_trades: 'Negociações ao vivo'
+		live_trades: 'Negociações ao vivo',
+		settings: 'Configurações',
+		admin: {
+			promo: 'Promo Codes'
+		}
 	},
 	main: {
 		title: 'Bem vindo(a) ao XprismPlay!',

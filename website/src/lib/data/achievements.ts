@@ -538,10 +538,21 @@ export const ACHIEVEMENTS: AchievementDef[] = [
 	{
 		id: 'prestige_5',
 		name: 'Ascended',
-		description: 'Reach Prestige V (max prestige)',
+		description: 'Reach Prestige V',
 		icon: 'green_diamond.png',
 		difficulty: 'legendary',
 		cashReward: 50000,
+		gemReward: 200,
+		category: 'prestige',
+		targetValue: 5
+	},
+	{
+		id: 'prestige_7',
+		name: 'Ascended',
+		description: 'Reach Prestige VII (max prestige)',
+		icon: 'green_diamond.png',
+		difficulty: 'legendary',
+		cashReward: 150000,
 		gemReward: 200,
 		category: 'prestige',
 		targetValue: 5
@@ -671,15 +682,37 @@ export const ACHIEVEMENTS: AchievementDef[] = [
 
 	// SHOP & COSMETICS (2)
 	{
-		id: 'own_10_colors',
+		id: 'own_5_colors',
 		name: 'Collector',
-		description: 'Own 10 different name colors',
+		description: 'Own 5 different name colors',
 		icon: 'lock.png',
 		difficulty: 'hard',
 		cashReward: 10000,
 		gemReward: 50,
 		category: 'shop',
+		targetValue: 5
+	},
+	{
+		id: 'own_10_colors',
+		name: 'Addicted Collector',
+		description: 'Own 10 different name colors',
+		icon: 'lock.png',
+		difficulty: 'hard',
+		cashReward: 20000,
+		gemReward: 70,
+		category: 'shop',
 		targetValue: 10
+	},
+	{
+		id: 'own_15_colors',
+		name: 'Super Addicted Collector',
+		description: 'Own 15 different name colors',
+		icon: 'lock.png',
+		difficulty: 'hard',
+		cashReward: 30000,
+		gemReward: 120,
+		category: 'shop',
+		targetValue: 15
 	},
 	{
 		id: 'open_50_crates',

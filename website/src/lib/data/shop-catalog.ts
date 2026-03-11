@@ -1,6 +1,5 @@
 export type Rarity = 'uncommon' | 'rare' | 'epic' | 'legendary';
 
-
 export interface NameColorItem {
 	key: string;
 	label: string;
@@ -44,6 +43,7 @@ export const NAME_COLOR_CATALOG: NameColorItem[] = [
 	// Rare
 	{ key: 'purple', label: 'Purple Haze', rarity: 'rare', price: 700, classes: 'text-purple-500' },
 	{ key: 'red', label: 'Red Alert', rarity: 'rare', price: 700, classes: 'text-red-500' },
+	{ key: 'white', label: 'White Color', rarity: 'rare', price: 700, classes: 'text-white-500' },
 	// Epic
 	{ key: 'gold', label: 'Gold Rush', rarity: 'epic', price: 1400, classes: 'text-yellow-400' },
 	{
@@ -79,6 +79,38 @@ export const NAME_COLOR_CATALOG: NameColorItem[] = [
 		price: 5000,
 		classes: 'bg-clip-text text-transparent animate-diamond-shimmer',
 		style: 'background-image: linear-gradient(135deg, #e2e8f0, #67e8f9, #c084fc, #e2e8f0)'
+	},
+	{
+		key: 'coffee',
+		label: 'Coffee Grind',
+		rarity: 'legendary',
+		price: 5500,
+		classes: 'bg-clip-text text-transparent animate-diamond-shimmer',
+		style: 'background-image: linear-gradient(135deg, #5B3A29, #3E2723, #A0785A)'
+	},
+	{
+		key: 'sigma',
+		label: 'Purple Sigma',
+		rarity: 'legendary',
+		price: 6000,
+		classes: 'bg-clip-text text-transparent animate-diamond-shimmer',
+		style: 'background-image: linear-gradient(135deg, #4B0082, #9966CC, #B026FF)'
+	},
+	{
+		key: 'face',
+		label: 'Face Dev',
+		rarity: 'legendary',
+		price: 6500,
+		classes: 'bg-clip-text text-transparent animate-diamond-shimmer',
+		style: 'background-image: linear-gradient(135deg, #000000, #ffffff)'
+	},
+	{
+		key: 'pink',
+		label: 'Pink Candle', // if you found this comment, please add a better name :D
+		rarity: 'legendary',
+		price: 7000,
+		classes: 'bg-clip-text text-transparent animate-diamond-shimmer',
+		style: 'background-image: linear-gradient(135deg, #ff6999, #ffabab, #ff6999)'
 	}
 ];
 
@@ -192,7 +224,7 @@ export const CRATE_TIERS: Record<CrateTierId, CrateTier> = {
 	mythic: {
 		id: 'mythic',
 		label: 'Auraful Crate',
-		description: 'The ultimate crate. Very high chance of epic+ color.',
+		description: 'The ultimate crate. Very high chance of epic+ colors.',
 		cost: 2500,
 		accent: '#c24adb',
 		sprite: { idle: '/chests/chest4_idle.png', open: '/chests/chest4_open.png' },

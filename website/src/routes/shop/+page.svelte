@@ -34,9 +34,7 @@
 
 	let confirmTier = $state<CrateTierId | null>(null);
 
-	let gemsNeededDialog = $state<{ tierId: CrateTierId; needed: number } | null>(
-		null
-	);
+	let gemsNeededDialog = $state<{ tierId: CrateTierId; needed: number } | null>(null);
 
 	// Per-crate state
 	let activeLootbox = $state<CrateTierId | null>(null);

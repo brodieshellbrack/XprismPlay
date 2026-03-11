@@ -49,7 +49,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			return json({ error: 'This promo code has expired' }, { status: 400 });
 		}
 
-        if (parseFloat(promoData.rewardAmount) > 1000000) {
+		if (parseFloat(promoData.rewardAmount) > 1000000) {
 			return json({ error: 'This promo code gives too much money' }, { status: 400 });
 		}
 

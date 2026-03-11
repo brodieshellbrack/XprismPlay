@@ -280,7 +280,7 @@
 								</Select.Root>
 							</div>
 						</div>
-						
+
 						<div class="flex items-center justify-between rounded-lg border p-3">
 							<div class="space-y-0.5">
 								<Label for="secret">Secret Promo Code</Label>

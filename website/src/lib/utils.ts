@@ -1,4 +1,3 @@
-import { PUBLIC_B2_BUCKET, PUBLIC_B2_ENDPOINT } from '$env/static/public';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { volumeSettings } from '$lib/stores/volume-settings';
@@ -363,10 +362,12 @@ export function timeToLocal(originalTime: number): number {
 
 export const PRESTIGE_COSTS = {
 	1: 100_000,
-	2: 250_000,
-	3: 1_000_000,
-	4: 5_000_000,
-	5: 25_000_000
+	2: 250_000, // 2.5x
+	3: 1_000_000, // 4x
+	4: 5_000_000, // 5x
+	5: 25_000_000, // 5x
+	6: 62_500_000, // 2.5x
+	7: 250_000_000 // 4x
 } as const;
 
 export const PRESTIGE_NAMES = {
@@ -374,7 +375,9 @@ export const PRESTIGE_NAMES = {
 	2: 'Prestige II',
 	3: 'Prestige III',
 	4: 'Prestige IV',
-	5: 'Prestige V'
+	5: 'Prestige V',
+	6: 'Prestige VI',
+	7: 'Prestige VII'
 } as const;
 
 export const PRESTIGE_COLORS = {
@@ -382,29 +385,31 @@ export const PRESTIGE_COLORS = {
 	2: 'text-purple-500',
 	3: 'text-yellow-500',
 	4: 'text-orange-500',
-	5: 'text-red-500'
+	5: 'text-red-500',
+	6: 'text-cyan-500',
+	7: 'text-emerald-500'
 } as const;
 
 export function getPrestigeName(level: number): string | null {
 	if (level <= 0) return null;
-	const clampedLevel = Math.min(level, 5) as keyof typeof PRESTIGE_NAMES;
+	const clampedLevel = Math.min(level, getMaxPrestigeLevel()) as keyof typeof PRESTIGE_NAMES;
 	return PRESTIGE_NAMES[clampedLevel];
 }
 
 export function getPrestigeCost(level: number): number | null {
 	if (level <= 0) return null;
-	const clampedLevel = Math.min(level, 5) as keyof typeof PRESTIGE_COSTS;
+	const clampedLevel = Math.min(level, getMaxPrestigeLevel()) as keyof typeof PRESTIGE_COSTS;
 	return PRESTIGE_COSTS[clampedLevel];
 }
 
 export function getPrestigeColor(level: number): string {
 	if (level <= 0) return 'text-gray-500';
-	const clampedLevel = Math.min(level, 5) as keyof typeof PRESTIGE_COLORS;
+	const clampedLevel = Math.min(level, getMaxPrestigeLevel()) as keyof typeof PRESTIGE_COLORS;
 	return PRESTIGE_COLORS[clampedLevel];
 }
 
 export function getMaxPrestigeLevel(): number {
-	return 5;
+	return 7;
 }
 
 export function validateBetAmount(

@@ -37,7 +37,6 @@
 	let numericAmount = $derived(parseFloat(amount) || 0);
 	let currentPrice = $derived(coin.currentPrice || 0);
 
-
 	let poolTokensAfterBurn = $derived(() => {
 		if (type !== 'BURN' || numericAmount <= 0) return numericAmount;
 		const poolCoin = Number(coin.poolCoinAmount);
@@ -136,14 +135,17 @@
 			}
 
 			haptic.trigger('success');
-			toast.success(`${type === 'BUY' ? 'Bought' : type === 'SELL' ? 'Sold' : 'Burned'} successfully!`, {
-				description:
-					type === 'BUY'
-						? `Purchased ${result.coinsBought.toFixed(6)} ${coin.symbol} for $${result.totalCost.toFixed(6)}`
-						: type === 'SELL'
-							? `Sold ${result.coinsSold.toFixed(6)} ${coin.symbol} for $${result.totalReceived.toFixed(6)}`
-							: `Burned ${result.coinsBurned.toFixed(6)} ${coin.symbol}`
-			});
+			toast.success(
+				`${type === 'BUY' ? 'Bought' : type === 'SELL' ? 'Sold' : 'Burned'} successfully!`,
+				{
+					description:
+						type === 'BUY'
+							? `Purchased ${result.coinsBought.toFixed(6)} ${coin.symbol} for $${result.totalCost.toFixed(6)}`
+							: type === 'SELL'
+								? `Sold ${result.coinsSold.toFixed(6)} ${coin.symbol} for $${result.totalReceived.toFixed(6)}`
+								: `Burned ${result.coinsBurned.toFixed(6)} ${coin.symbol}`
+				}
+			);
 
 			onSuccess?.();
 			handleClose();

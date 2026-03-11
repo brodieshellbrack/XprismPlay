@@ -284,10 +284,10 @@ export const POST: RequestHandler = async ({ request }) => {
 				);
 				await publishArcadeActivity(userId, result.session.betAmount, won, 'blackjack', 2500);
 				await checkAndAwardAchievements(userId, ['arcade', 'wealth'], {
-              arcadeWon: won,
-              arcadeWager: updatedSession.betAmount,
-              cardsValue: value
-          });
+					arcadeWon: won,
+					arcadeWager: updatedSession.betAmount,
+					cardsValue: value
+				});
 			}
 
 			return json({
@@ -469,16 +469,18 @@ export const POST: RequestHandler = async ({ request }) => {
 					settled
 				} = await advanceOrSettle(session, userId);
 
-                if (settled) {
-                    const won = updatedSession.playerHands.some(h => h.status === 'won' || h.status === 'blackjack');
-                    await publishArcadeActivity(userId, updatedSession.betAmount, won, 'blackjack', 2500);
-                    await checkAndAwardAchievements(userId, ['arcade', 'wealth'], {
-                        arcadeWon: won,
-                        arcadeWager: updatedSession.betAmount,
-                        cardsValue: value
-                    });
-                    return json({ ...buildClientState(updatedSession), newBalance });
-                }
+				if (settled) {
+					const won = updatedSession.playerHands.some(
+						(h) => h.status === 'won' || h.status === 'blackjack'
+					);
+					await publishArcadeActivity(userId, updatedSession.betAmount, won, 'blackjack', 2500);
+					await checkAndAwardAchievements(userId, ['arcade', 'wealth'], {
+						arcadeWon: won,
+						arcadeWager: updatedSession.betAmount,
+						cardsValue: value
+					});
+					return json({ ...buildClientState(updatedSession), newBalance });
+				}
 
 				return json({ ...buildClientState(updatedSession) });
 			}

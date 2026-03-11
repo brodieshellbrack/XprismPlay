@@ -45,7 +45,7 @@ const REWARD_TIERS = [
 ];
 
 function getPrestigeMultiplier(prestigeLevel: number): number {
-	return 1.25**prestigeLevel; // ** = ^ and ^0 = 1
+	return 1.25 ** prestigeLevel; // ** = ^ and ^0 = 1
 }
 
 function calculateStreak(lastClaim: Date | null, currentStreak: number): number {

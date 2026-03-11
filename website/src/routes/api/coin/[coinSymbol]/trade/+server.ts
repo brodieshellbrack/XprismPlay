@@ -260,7 +260,7 @@ export async function POST({ params, request }) {
 				priceImpact,
 				newBalance: userBalance - totalCost
 			});
-		} else if (type === "SELL") {
+		} else if (type === 'SELL') {
 			// AMM SELL: amount = number of coins to sell
 			const [userHolding] = await tx
 				.select({ quantity: userPortfolio.quantity })

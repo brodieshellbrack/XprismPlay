@@ -42,7 +42,11 @@ export default {
 		create_coin: 'Create Coin',
 		notifications: 'Notifications',
 		about: 'About',
-		live_trades: 'Live Trades'
+		live_trades: 'Live Trades',
+		settings: 'Settings',
+		admin: {
+			promo: 'Promo Codes'
+		}
 	},
 	main: {
 		title: 'Welcome to XprismPlay!',
