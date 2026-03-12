@@ -66,7 +66,7 @@ async function validateInputs(
 	}
 
 	if (timezone && !timezoneList.includes(+timezone)) {
-		throw error(400, 'Avatar file must be smaller than 1MB');
+		throw error(400, 'Invalid Timezone provided');
 	}
 }
 
