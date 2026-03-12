@@ -288,8 +288,8 @@
 				}
 				return {
 					component: 'badge',
-					variant: value === 'BUY' ? 'success' : 'destructive',
-					text: value === 'BUY' ? 'Buy' : 'Sell',
+					variant: value === 'BUY' ? 'success' : value === "BURN" ? 'fire' : 'destructive',
+					text: value === 'BUY' ? 'Buy' : value === "BURN" ? 'Burn' : 'Sell',
 					class: 'text-xs'
 				};
 			}

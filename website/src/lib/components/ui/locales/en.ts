@@ -56,7 +56,30 @@ export default {
 	coin: {
 		'24hchange': '24h change',
 		marketcap: 'Market Cap',
-		volume24h: 'Volume (24h)'
+		volume24h: 'Volume (24h)',
+		createdBy: "Created by",
+		priceChart: ["Price Chart ({{time}}", '1 minute', '5 minutes', '15 minutes', '1 hour', '4 hours', '1 day'],
+		trade: {
+			title: "Trade {{symbol}}",
+			buy: {
+				title: "Buy {{symbol}}",
+				current: "Current price: ${{price}} per {{symbol}}",
+				amountSpend: ["Amount to spend ($)", "Balance: {{balance}}"],
+				buy: "Buy {{symbol}}"
+			}
+		},
+		pool: {
+			title: "Pool Composition",
+			baseCurrency: "Base Currency:",
+			burnedCoins: "Burned Coins:",
+			stats: {
+				liquity: "Total Liquity:",
+				currentPrice: "Current Price:"
+			}
+		},
+		topHolders: {
+			title: "Top Holders"
+		}
 	},
 	sign_in: {
 		message: ['You need to', 'sign in', 'to play.'],
