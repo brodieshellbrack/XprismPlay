@@ -3,7 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { HugeiconsIcon } from '@hugeicons/svelte';
-	import { Shield01Icon, UserCheck01Icon, Cancel01Icon, Coins01Icon, Trophy01Icon } from '@hugeicons/core-free-icons';
+	import { Shield01Icon, UserCheck01Icon, Cancel01Icon, Coins01Icon } from '@hugeicons/core-free-icons';
 	import { toast } from 'svelte-sonner';
 
 	// Toggle Admin State
@@ -218,7 +218,7 @@
 	<Card.Root>
 		<Card.Header>
 			<Card.Title class="flex items-center gap-2">
-				<HugeiconsIcon icon={Trophy01Icon} class="h-5 w-5 text-yellow-500" />
+				<HugeiconsIcon icon={UserCheck01Icon} class="h-5 w-5 text-yellow-500" />
 				Prestige Management
 			</Card.Title>
 			<Card.Description>Set a user's prestige level.</Card.Description>
