@@ -45,7 +45,7 @@ export const NAME_COLOR_CATALOG: NameColorItem[] = [
 	// Rare
 	{ key: 'purple', label: 'Purple Haze', rarity: 'rare', price: 700, classes: 'text-purple-500' },
 	{ key: 'red', label: 'Red Alert', rarity: 'rare', price: 700, classes: 'text-red-500' },
-	{ key: 'white', label: 'Default Color', rarity: 'rare', price: 700, classes: 'text-white' },
+	{ key: 'white', label: 'Default Color', rarity: 'rare', price: 700, style: "color: var(--foreground)", classes: '' },
 	// Epic
 	{ key: 'gold', label: 'Gold Rush', rarity: 'epic', price: 1400, classes: 'text-yellow-400' },
 	{
@@ -218,8 +218,8 @@ export const NAME_COLOR_CATALOG: NameColorItem[] = [
 		label: 'Default Light',
 		rarity: 'mythic',
 		price: 7000,
-		classes: 'text-white',
-		style: 'text-shadow: 0px 0px 10px #fff;'
+		classes: '',
+		style: 'text-shadow: 0px 0px 10px var(--foreground);'
 	},
 ];
 

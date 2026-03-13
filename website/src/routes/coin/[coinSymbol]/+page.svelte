@@ -36,7 +36,7 @@
 	import { websocketController, type PriceUpdate, isConnectedStore } from '$lib/stores/websocket';
 	import SEO from '$lib/components/self/SEO.svelte';
 	import SignInConfirmDialog from '$lib/components/self/SignInConfirmDialog.svelte';
-
+	import { _ } from 'svelte-i18n'
 	const { data } = $props();
 	let coinSymbol = $derived(data.coinSymbol);
 	let coin = $state(data.coin);
