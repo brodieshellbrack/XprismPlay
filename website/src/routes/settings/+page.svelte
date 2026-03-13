@@ -18,9 +18,10 @@
 		VolumeMute01Icon,
 		Download01Icon,
 		Delete01Icon,
-		Notification03Icon,
 		ArrowLeft01Icon,
-		ArrowRight01Icon
+		ArrowRight01Icon,
+		Clock,
+		Down
 	} from '@hugeicons/core-free-icons';
 	import * as Pagination from '$lib/components/ui/pagination';
 	import { toast } from 'svelte-sonner';
@@ -30,12 +31,15 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import SEO from '$lib/components/self/SEO.svelte';
 	import { haptic } from '$lib/stores/haptics';
+	import { Select } from 'bits-ui';
+	import { formatTimezone, timezoneList } from '$lib/utils/timezones';
 
 	let shouldSignIn = $state(false);
 	let name = $state($USER_DATA?.name || '');
 	let bio = $state($USER_DATA?.bio ?? '');
 	let username = $state($USER_DATA?.username || '');
-
+	let timezone = $state($USER_DATA?.timezone?.toString() || '0');
+	console.log($USER_DATA);
 	const initialUsername = $USER_DATA?.username || '';
 	let avatarFile: FileList | undefined = $state(undefined);
 
@@ -48,7 +52,8 @@
 		name !== ($USER_DATA?.name || '') ||
 			bio !== ($USER_DATA?.bio ?? '') ||
 			username !== ($USER_DATA?.username || '') ||
-			avatarFile !== undefined
+			avatarFile !== undefined ||
+			+timezone !== ($USER_DATA?.timezone || 0)
 	);
 
 	let fileInput: HTMLInputElement | undefined = $state(undefined);
@@ -197,6 +202,7 @@
 			fd.append('name', name.trim());
 			fd.append('bio', bio);
 			fd.append('username', username);
+			fd.append('timezone', timezone);
 			if (avatarFile?.[0]) fd.append('avatar', avatarFile[0]);
 
 			const res = await fetch('/api/settings', { method: 'POST', body: fd });
@@ -479,6 +485,36 @@
 						<div class="space-y-2">
 							<Label for="bio">Bio</Label>
 							<Textarea id="bio" bind:value={bio} rows={4} placeholder="Tell us about yourself" />
+						</div>
+
+						<div class="space-y-2">
+							<Label for="bio">Timezone</Label>
+							<Select.Root
+								type="single"
+								bind:value={timezone}
+								onValueChange={(v) => (timezone = v)}
+							>
+								<Select.Trigger
+									class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+								>
+									{formatTimezone(+timezone)}
+									<HugeiconsIcon icon={Down} class="h-4 w-4" />
+								</Select.Trigger>
+								<Select.Content
+									class="bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--bits-select-content-available-height) max-h-55 min-w-[8rem] origin-(--bits-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
+								>
+									<Select.Group>
+										{#each timezoneList as timezone}
+											<Select.Item value={timezone.toString()} label={formatTimezone(timezone)}>
+												<div class="flex items-center gap-2">
+													<HugeiconsIcon icon={Clock} class="h-4 w-4" />
+													{formatTimezone(timezone)}
+												</div>
+											</Select.Item>
+										{/each}
+									</Select.Group>
+								</Select.Content>
+							</Select.Root>
 						</div>
 
 						<Button type="submit" disabled={loading || !isDirty || !!nameError}>

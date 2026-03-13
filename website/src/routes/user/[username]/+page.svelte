@@ -22,12 +22,14 @@
 		PercentIcon,
 		Invoice03Icon,
 		Award05Icon,
-		UnavailableIcon
+		UnavailableIcon,
+		ClockIcon
 	} from '@hugeicons/core-free-icons';
 	import { goto } from '$app/navigation';
 	import { USER_DATA } from '$lib/stores/user-data';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import { haptic } from '$lib/stores/haptics';
+	import { formatTimezone, getTimezoneDate, timezoneList } from '$lib/utils/timezones.js';
 
 	let { data } = $props();
 	let username = $derived(data.username);
@@ -35,6 +37,7 @@
 	let profileData = $state(data.profileData);
 	let recentTransactions = $state(data.recentTransactions);
 	let loading = $state(false);
+	let usersTimezone = getTimezoneDate(profileData?.profile?.timezone);
 	let userAchievements = $state<any[]>([]);
 
 	let previousUsername = $state<string | null>(null);
@@ -288,8 +291,8 @@
 				}
 				return {
 					component: 'badge',
-					variant: value === 'BUY' ? 'success' : value === "BURN" ? 'fire' : 'destructive',
-					text: value === 'BUY' ? 'Buy' : value === "BURN" ? 'Burn' : 'Sell',
+					variant: value === 'BUY' ? 'success' : value === 'BURN' ? 'fire' : 'destructive',
+					text: value === 'BUY' ? 'Buy' : value === 'BURN' ? 'Burn' : 'Sell',
 					class: 'text-xs'
 				};
 			}
@@ -502,6 +505,21 @@
 						<div class="text-muted-foreground flex items-center gap-2 text-sm">
 							<HugeiconsIcon icon={Calendar01Icon} class="h-4 w-4" />
 							<span>Joined {memberSince}</span>
+						</div>
+						<div class="text-muted-foreground flex items-center gap-2 text-sm">
+							<HugeiconsIcon icon={ClockIcon} class="h-4 w-4" />
+							<span
+								>{profileData?.profile.name} are at
+								<b
+									title="{profileData?.profile.name}'s timezone: UTC{formatTimezone(
+										profileData?.profile?.timezone ?? 0
+									)}"
+									>{usersTimezone.getHours().toString().padStart(2, '0')}:{usersTimezone
+										.getMinutes()
+										.toString()
+										.padStart(2, '0')}h</b
+								> rn</span
+							>
 						</div>
 					</div>
 					{#if $USER_DATA && !isOwnProfile}

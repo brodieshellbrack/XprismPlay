@@ -24,13 +24,15 @@ export async function GET({ params }) {
 				createdAt: true,
 				baseCurrencyBalance: true,
 				isAdmin: true,
+				isHeadAdmin: true,
 				loginStreak: true,
 				prestigeLevel: true,
 				halloweenBadge2025: true,
 				arcadeWins: true,
 				arcadeLosses: true,
 				nameColor: true,
-				founderBadge: true
+				founderBadge: true,
+				timezone: true
 			}
 		});
 

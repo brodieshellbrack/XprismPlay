@@ -60,7 +60,8 @@
 		uncommon: '#10b981',
 		rare: '#3b82f6',
 		epic: '#a855f7',
-		legendary: '#eab308'
+		legendary: '#eab308',
+		mythic: 'var(--color-red-500)'
 	};
 
 	// Inventory state
@@ -133,7 +134,7 @@
 
 	type DescriptionPart = { text: string; rarity?: Rarity };
 	function parseDescription(text: string): DescriptionPart[] {
-		const pattern = /\b(uncommon|rare|epic|legendary)\b/gi;
+		const pattern = /\b(uncommon|rare|epic|legendary|mythic)\b/gi;
 		const parts: DescriptionPart[] = [];
 		let lastIndex = 0;
 		let m: RegExpExecArray | null;
@@ -223,7 +224,7 @@
 		return a;
 	}
 
-	const RARITY_ORDER: Rarity[] = ['uncommon', 'rare', 'epic', 'legendary'];
+	const RARITY_ORDER: Rarity[] = ['uncommon', 'rare', 'epic', 'legendary', 'mythic'];
 	const CYCLE_TICK_MS = 100;
 	const CYCLE_TICKS_PER_STAGE = 14; // ~1.4s per stage
 	const CYCLE_PITCHES = [1.0, 1.15, 1.3, 1.5, 1.75];
@@ -717,7 +718,7 @@
 		{/if}
 		<Card.Root>
 			<Card.Content class="p-6">
-				{#each ['uncommon', 'rare', 'epic', 'legendary'] as const as rarity, i}
+				{#each ['uncommon', 'rare', 'epic', 'legendary', 'mythic'] as const as rarity, i}
 					{@const rarityColors = NAME_COLOR_CATALOG.filter((c) => c.rarity === rarity)}
 					{#if i > 0}
 						<div class="my-4 border-t"></div>

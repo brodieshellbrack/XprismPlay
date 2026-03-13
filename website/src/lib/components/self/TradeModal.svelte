@@ -168,7 +168,7 @@
 				amount = maxSellableAmount.toString();
 			}
 		} else if (type === 'BURN') {
-			amount = userHolding
+			amount = userHolding;
 		} else if ($PORTFOLIO_SUMMARY) {
 			amount = userBalance.toString();
 		}
@@ -244,7 +244,6 @@
 						{/if}
 					</p>
 				{:else if type === 'BURN'}
-
 					<p class="text-muted-foreground text-xs">
 						Available: {userHolding.toFixed(6)}
 						{coin.symbol}

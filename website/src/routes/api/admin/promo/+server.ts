@@ -45,7 +45,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			createdBy: userId
 		})
 		.returning();
-    
+
 	if (!isSecret) {
 		writeAdminLog(
 			userId,

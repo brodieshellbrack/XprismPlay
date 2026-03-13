@@ -60,7 +60,8 @@ export async function POST({ params, request }) {
 				tradingUnlocksAt: coin.tradingUnlocksAt,
 				isLocked: coin.isLocked,
 				change24h: coin.change24h,
-				createdAt: coin.createdAt
+				createdAt: coin.createdAt,
+				volume24h: coin.volume24h
 			})
 			.from(coin)
 			.where(eq(coin.symbol, normalizedSymbol))
@@ -475,6 +476,7 @@ export async function POST({ params, request }) {
 				newBalance: userBalance
 			});
 		}
+		return json({});
 	});
 }
 

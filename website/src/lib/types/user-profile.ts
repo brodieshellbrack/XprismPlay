@@ -10,6 +10,7 @@ export interface UserProfile {
 	isHeadAdmin: boolean;
 	totalPortfolioValue: number;
 	loginStreak: number;
+	timezone: number;
 
 	prestigeLevel: number | null;
 	halloweenBadge2025: boolean;

@@ -7,12 +7,14 @@ import { eq } from 'drizzle-orm';
 import { MAX_FILE_SIZE } from '$lib/data/constants';
 import { isNameAppropriate } from '$lib/server/moderation';
 import { checkAndAwardAchievements } from '$lib/server/achievements';
+import { timezoneList } from '$lib/utils/timezones.js';
 
 async function validateInputs(
 	name: string,
 	bio: string,
 	username: string,
-	avatarFile: File | null
+	avatarFile: File | null,
+	timezone: string
 ) {
 	if (!name || !name.trim()) {
 		throw error(400, 'Display name is required');
@@ -62,6 +64,10 @@ async function validateInputs(
 	if (avatarFile && avatarFile.size > MAX_FILE_SIZE) {
 		throw error(400, 'Avatar file must be smaller than 1MB');
 	}
+
+	if (timezone && !timezoneList.includes(+timezone)) {
+		throw error(400, 'Invalid Timezone provided');
+	}
 }
 
 export async function POST({ request }) {
@@ -79,16 +85,17 @@ export async function POST({ request }) {
 	const bio = formData.get('bio') as string;
 	const username = (formData.get('username') as string)?.toLowerCase().trim();
 	const avatarFile = formData.get('avatar') as File | null;
-
+	const timezone = (formData.get('timezone') as string)?.trim();
 	name = name?.trim().replace(/\s+/g, ' ');
 
-	await validateInputs(name, bio, username, avatarFile);
+	await validateInputs(name, bio, username, avatarFile, timezone);
 
 	const updates: Record<string, any> = {
 		name,
 		bio,
 		username,
-		updatedAt: new Date()
+		updatedAt: new Date(),
+		timezone: timezone
 	};
 
 	if (avatarFile && avatarFile.size > 0) {

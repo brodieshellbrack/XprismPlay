@@ -77,9 +77,9 @@ export const POST: RequestHandler = async ({ request }) => {
 			`Set isAdmin to: ${makeAdmin}`
 		);
 
-		return json({ 
-			success: true, 
-			message: `User @${targetUser.username} is ${makeAdmin ? 'now an Admin' : 'no longer an Admin'}.` 
+		return json({
+			success: true,
+			message: `User @${targetUser.username} is ${makeAdmin ? 'now an Admin' : 'no longer an Admin'}.`
 		});
 	} catch (e: any) {
 		if (e.status) throw e;

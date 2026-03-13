@@ -135,6 +135,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 					name: user.name,
 					username: user.username,
 					email: user.email,
+					isHeadAdmin: user.isHeadAdmin,
 					isAdmin: user.isAdmin,
 					image: user.image,
 					isBanned: user.isBanned,
@@ -146,7 +147,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 					nameColor: user.nameColor,
 					founderBadge: user.founderBadge,
 					prestigeLevel: user.prestigeLevel,
-					disableMentions: user.disableMentions
+					disableMentions: user.disableMentions,
+					timezone: user.timezone
 				})
 				.from(user)
 				.where(eq(user.id, Number(userId)))
@@ -177,6 +179,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 					name: userRecord.name,
 					username: userRecord.username,
 					email: userRecord.email,
+					isHeadAdmin: userRecord.isHeadAdmin || false,
 					isAdmin: userRecord.isAdmin || false,
 					image: userRecord.image || '',
 					isBanned: userRecord.isBanned || false,
@@ -190,7 +193,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 					founderBadge: userRecord.founderBadge ?? false,
 					prestigeLevel: userRecord.prestigeLevel ?? 0,
 					disableMentions: userRecord.disableMentions ?? false,
-					hideAds: totalUsdSpent >= 499
+					hideAds: totalUsdSpent >= 499,
+					timezone: userRecord.timezone
 				};
 
 				const cacheTTL = userRecord.isAdmin ? CACHE_TTL * 2 : CACHE_TTL;
