@@ -410,7 +410,6 @@
 													createdAt: new Date(),
 													totalPortfolioValue: totalValue,
 													loginStreak: 0,
-													halloweenBadge2025: false,
 													arcadeWins: 0,
 													arcadeLosses: 0
 												} as any}
@@ -446,7 +445,6 @@
 													createdAt: new Date(),
 													totalPortfolioValue: totalValue,
 													loginStreak: 0,
-													halloweenBadge2025: false,
 													arcadeWins: 0,
 													arcadeLosses: 0
 												} as any}

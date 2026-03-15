@@ -15,7 +15,7 @@ export const GET: RequestHandler = async ({ request }) => {
 	const [userData, items] = await Promise.all([
 		db.query.user.findFirst({
 			where: eq(user.id, userId),
-			columns: { gems: true, founderBadge: true }
+			columns: { gems: true }
 		}),
 		db.query.userInventory.findMany({
 			where: eq(userInventory.userId, userId),
@@ -25,7 +25,6 @@ export const GET: RequestHandler = async ({ request }) => {
 
 	return json({
 		gems: userData?.gems ?? 0,
-		founderBadge: userData?.founderBadge ?? false,
 		nameColors: items.filter((i) => i.itemType === 'namecolor').map((i) => i.itemKey)
 	});
 };

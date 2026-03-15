@@ -111,8 +111,7 @@
 				image: row.image,
 				name: row.name,
 				username: row.username,
-				nameColor: row.nameColor,
-				founderBadge: row.founderBadge
+				nameColor: row.nameColor
 			})
 		}
 	];
@@ -139,8 +138,7 @@
 				image: row.image,
 				name: row.name,
 				username: row.username,
-				nameColor: row.nameColor,
-				founderBadge: row.founderBadge
+				nameColor: row.nameColor
 			})
 		},
 		{
@@ -173,8 +171,7 @@
 				image: row.image,
 				name: row.name,
 				username: row.username,
-				nameColor: row.nameColor,
-				founderBadge: row.founderBadge
+				nameColor: row.nameColor
 			})
 		},
 		{
@@ -207,8 +204,7 @@
 				image: row.image,
 				name: row.name,
 				username: row.username,
-				nameColor: row.nameColor,
-				founderBadge: row.founderBadge
+				nameColor: row.nameColor
 			})
 		},
 		{
@@ -241,8 +237,7 @@
 				image: row.image,
 				name: row.name,
 				username: row.username,
-				nameColor: row.nameColor,
-				founderBadge: row.founderBadge
+				nameColor: row.nameColor
 			})
 		},
 		{

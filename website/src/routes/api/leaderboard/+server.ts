@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { user, transaction, userPortfolio, coin } from '$lib/server/db/schema';
 import { eq, desc, gte, and, sql, inArray, ilike, count } from 'drizzle-orm';
+import { hasFlag } from '$lib/data/flags.js';
 
 async function getLeaderboardData() {
 	try {
@@ -14,14 +15,14 @@ async function getLeaderboardData() {
 				name: user.name,
 				image: user.image,
 				nameColor: user.nameColor,
-				founderBadge: user.founderBadge,
+				flags: user.flags,
 				totalSold: sql<number>`COALESCE(SUM(CASE WHEN ${transaction.type} = 'SELL' THEN CAST(${transaction.totalBaseCurrencyAmount} AS NUMERIC) ELSE 0 END), 0)`,
 				totalBought: sql<number>`COALESCE(SUM(CASE WHEN ${transaction.type} = 'BUY' THEN CAST(${transaction.totalBaseCurrencyAmount} AS NUMERIC) ELSE 0 END), 0)`
 			})
 			.from(transaction)
 			.innerJoin(user, eq(transaction.userId, user.id))
 			.where(gte(transaction.timestamp, twentyFourHoursAgo))
-			.groupBy(user.id, user.username, user.name, user.image, user.nameColor, user.founderBadge)
+			.groupBy(user.id, user.username, user.name, user.image, user.nameColor)
 			.orderBy(
 				desc(
 					sql`SUM(CASE WHEN ${transaction.type} = 'SELL' THEN CAST(${transaction.totalBaseCurrencyAmount} AS NUMERIC) ELSE 0 END) - SUM(CASE WHEN ${transaction.type} = 'BUY' THEN CAST(${transaction.totalBaseCurrencyAmount} AS NUMERIC) ELSE 0 END)`
@@ -36,11 +37,11 @@ async function getLeaderboardData() {
 				name: user.name,
 				image: user.image,
 				nameColor: user.nameColor,
-				founderBadge: user.founderBadge,
 				type: transaction.type,
 				coinId: transaction.coinId,
 				totalAmount: sql<number>`CAST(${transaction.totalBaseCurrencyAmount} AS NUMERIC)`,
-				quantity: sql<number>`CAST(${transaction.quantity} AS NUMERIC)`
+				quantity: sql<number>`CAST(${transaction.quantity} AS NUMERIC)`,
+				flags: user.flags
 			})
 			.from(transaction)
 			.innerJoin(user, eq(transaction.userId, user.id))
@@ -55,7 +56,7 @@ async function getLeaderboardData() {
 					name: tx.name,
 					image: tx.image,
 					nameColor: tx.nameColor,
-					founderBadge: tx.founderBadge,
+					founderBadge: hasFlag(tx.flags, 'FOUNDER_BADGE'),
 					totalBought: 0,
 					totalSold: 0,
 					coinHoldings: new Map()
@@ -127,7 +128,6 @@ async function getLeaderboardData() {
 					name: user.name,
 					image: user.image,
 					nameColor: user.nameColor,
-					founderBadge: user.founderBadge,
 					baseCurrencyBalance: user.baseCurrencyBalance,
 					coinValue: sql<number>`COALESCE(SUM(CAST(${userPortfolio.quantity} AS NUMERIC) * CAST(${coin.currentPrice} AS NUMERIC)), 0)`
 				})
@@ -140,7 +140,6 @@ async function getLeaderboardData() {
 					user.name,
 					user.image,
 					user.nameColor,
-					user.founderBadge,
 					user.baseCurrencyBalance
 				)
 				.orderBy(desc(sql`CAST(${user.baseCurrencyBalance} AS NUMERIC)`))
@@ -153,7 +152,6 @@ async function getLeaderboardData() {
 					name: user.name,
 					image: user.image,
 					nameColor: user.nameColor,
-					founderBadge: user.founderBadge,
 					baseCurrencyBalance: user.baseCurrencyBalance,
 					coinValue: sql<number>`COALESCE(SUM(CAST(${userPortfolio.quantity} AS NUMERIC) * CAST(${coin.currentPrice} AS NUMERIC)), 0)`
 				})
@@ -166,7 +164,6 @@ async function getLeaderboardData() {
 					user.name,
 					user.image,
 					user.nameColor,
-					user.founderBadge,
 					user.baseCurrencyBalance
 				)
 				.orderBy(
@@ -231,7 +228,6 @@ async function getSearchedUsers(query: string, limit = 9, offset = 0) {
 				username: user.username,
 				image: user.image,
 				nameColor: user.nameColor,
-				founderBadge: user.founderBadge,
 				bio: user.bio,
 				baseCurrencyBalance: user.baseCurrencyBalance,
 				coinValue: sql<number>`COALESCE(SUM(CAST(${userPortfolio.quantity} AS NUMERIC) * CAST(${coin.currentPrice} AS NUMERIC)), 0)`,
@@ -247,7 +243,6 @@ async function getSearchedUsers(query: string, limit = 9, offset = 0) {
 				user.username,
 				user.image,
 				user.nameColor,
-				user.founderBadge,
 				user.bio,
 				user.baseCurrencyBalance
 			)

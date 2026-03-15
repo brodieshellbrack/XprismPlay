@@ -161,14 +161,6 @@
 							class="text-primary underline">admurin</a
 						>
 					</p>
-					<p class="text-muted-foreground text-sm">
-						Halloween badge by <a
-							href="https://www.flaticon.com/authors/smalllikeart"
-							target="_blank"
-							rel="noopener"
-							class="text-primary underline">smalllikeart</a
-						>
-					</p>
 				</div>
 			</CardContent>
 		</Card>
