@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		.where(eq(user.id, userId))
 		.limit(1);
 	if (hasFlag(currentUser.flags, 'NO_ARCADE'))
-		throw new Error(`You are not authorized to play Arcade Games.`);
+		return json({ error: "You aren't authorized to play Arcade games." }, { status: 403 });
 	try {
 		const { betAmount, difficulty } = await request.json();
 		const userId = Number(session.user.id);
