@@ -54,7 +54,4 @@
 	{:else if hasFlag(user.flags, 'IS_ADMIN')}
 		<SilentBadge icon={KnightShieldIcon} text="Admin" class="text-primary {badgeClass}" />
 	{/if}
-	{#if hasFlag(user.flags, 'HALLOWEEN_BADGE')}
-		<SilentBadge icon={GhostIcon} text="Halloween 2024" class="text-orange-500 {badgeClass}" />
-	{/if}
 </div>
