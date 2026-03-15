@@ -11,7 +11,8 @@ import {
 	pgEnum,
 	index,
 	unique,
-	check
+	check,
+	bigint
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
@@ -47,8 +48,15 @@ export const user = pgTable(
 		image: text('image'),
 		createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+		// @ts-expect-error
+		flags: bigint('flags', { mode: 'bigint' }).notNull().default('0'), // Check /website/src/lib/data/flags.ts
+
+		// LEGACY: Getting removed after everything is done
 		isAdmin: boolean('is_admin').default(false),
 		isHeadAdmin: boolean('is_head_admin').default(false),
+		founderBadge: boolean('founder_badge').notNull().default(false),
+		disableMentions: boolean('disable_mentions').notNull().default(false),
+
 		isBanned: boolean('is_banned').default(false),
 		banReason: text('ban_reason'),
 		baseCurrencyBalance: decimal('base_currency_balance', {
@@ -96,11 +104,8 @@ export const user = pgTable(
 			.notNull()
 			.default('0.00000000'),
 		cratesOpened: integer('crates_opened').notNull().default(0),
-		halloweenBadge2025: boolean('halloween_badge_2025').default(false),
 		gems: integer('gems').notNull().default(0),
 		nameColor: text('name_color'),
-		founderBadge: boolean('founder_badge').notNull().default(false),
-		disableMentions: boolean('disable_mentions').notNull().default(false),
 		timezone: integer('timezone').default(0)
 	},
 	(table) => {
