@@ -50,7 +50,7 @@ export const user = pgTable(
 		updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 		// @ts-expect-error
 		flags: bigint('flags', { mode: 'bigint' }).notNull().default('0'), // Check /website/src/lib/data/flags.ts
-		
+
 		// LEGACY: Getting removed after everything is done
 		disableMentions: boolean('disable_mentions').notNull().default(false),
 

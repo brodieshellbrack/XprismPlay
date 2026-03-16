@@ -35,6 +35,13 @@
 			icon: Shield01Icon,
 			url: '/admin/logs',
 			color: 'text-orange-500'
+		},
+		{
+			title: 'Transactions Logs',
+			description: 'Complete record of trading activity and transactions of the entire platform.',
+			icon: Analytics01Icon,
+			url: '/admin/transactions',
+			color: 'text-red-500'
 		}
 	];
 </script>

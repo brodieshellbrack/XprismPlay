@@ -40,7 +40,7 @@ async function getLeaderboardData() {
 				coinId: transaction.coinId,
 				flags: user.flags,
 				totalAmount: sql<number>`CAST(${transaction.totalBaseCurrencyAmount} AS NUMERIC)`,
-				quantity: sql<number>`CAST(${transaction.quantity} AS NUMERIC)`,
+				quantity: sql<number>`CAST(${transaction.quantity} AS NUMERIC)`
 			})
 			.from(transaction)
 			.innerJoin(user, eq(transaction.userId, user.id))

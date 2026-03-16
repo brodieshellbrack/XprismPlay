@@ -1,11 +1,13 @@
 import { auth } from '$lib/auth';
 import { error, json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 import { db } from '$lib/server/db';
 import { transaction, coin, user } from '$lib/server/db/schema';
 import { eq, desc, asc, and, or, ilike, sql } from 'drizzle-orm';
 import { alias } from 'drizzle-orm/pg-core';
+import { hasFlag } from '$lib/data/flags';
 
-export async function GET({ request, url }) {
+export const GET: RequestHandler = async ({ request, url }) => {
 	const authSession = await auth.api.getSession({
 		headers: request.headers
 	});
@@ -13,9 +15,15 @@ export async function GET({ request, url }) {
 	if (!authSession?.user) {
 		throw error(401, 'Not authenticated');
 	}
+	const [currentUser] = await db
+		.select({ flags: user.flags })
+		.from(user)
+		.where(eq(user.id, Number(authSession.user.id)))
+		.limit(1);
+	if (!hasFlag(currentUser.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN'))
+		throw error(403, 'Admin access required');
 
-	const userId = Number(authSession.user.id);
-	const searchQuery = url.searchParams.get('search') || '';
+	const searchQuery = (url.searchParams.get('search') || '').trim();
 	const typeFilter = url.searchParams.get('type') || 'all';
 	const sortBy = url.searchParams.get('sortBy') || 'timestamp';
 	const sortOrder = url.searchParams.get('sortOrder') || 'desc';
@@ -34,12 +42,53 @@ export async function GET({ request, url }) {
 	const recipientUser = alias(user, 'recipientUser');
 
 	const senderUser = alias(user, 'senderUser');
+	const traderUser = alias(user, 'traderUser');
 
-	const conditions = [eq(transaction.userId, userId)];
+	const searchTerms = searchQuery.split(/\s+/).filter(Boolean);
+	const userTermIndex = searchTerms.findIndex((term) => term.toLowerCase().startsWith('user:'));
+	let actorUsernameFilter: string | null = null;
+	let actorUserIdFilter: number | null = null;
 
-	if (searchQuery) {
+	if (userTermIndex !== -1) {
+		const rawActor = searchTerms[userTermIndex].slice(5).trim();
+		const normalizedActor = rawActor.startsWith('@') ? rawActor.slice(1) : rawActor;
+		if (normalizedActor) {
+			if (/^\d+$/.test(normalizedActor)) {
+				actorUserIdFilter = Number(normalizedActor);
+			} else {
+				actorUsernameFilter = normalizedActor;
+			}
+		}
+		searchTerms.splice(userTermIndex, 1);
+	}
+
+	const coinSearchTerm = searchTerms.join(' ').trim();
+
+	const conditions = [];
+
+	if (coinSearchTerm) {
 		conditions.push(
-			or(ilike(coin.name, `%${searchQuery}%`), ilike(coin.symbol, `%${searchQuery}%`))!
+			or(ilike(coin.name, `%${coinSearchTerm}%`), ilike(coin.symbol, `%${coinSearchTerm}%`))!
+		);
+	}
+
+	if (actorUserIdFilter !== null) {
+		conditions.push(
+			or(
+				eq(transaction.userId, actorUserIdFilter),
+				eq(transaction.senderUserId, actorUserIdFilter),
+				eq(transaction.recipientUserId, actorUserIdFilter)
+			)!
+		);
+	}
+
+	if (actorUsernameFilter) {
+		conditions.push(
+			or(
+				ilike(traderUser.username, actorUsernameFilter),
+				ilike(senderUser.username, actorUsernameFilter),
+				ilike(recipientUser.username, actorUsernameFilter)
+			)!
 		);
 	}
 
@@ -74,11 +123,15 @@ export async function GET({ request, url }) {
 		.select({ count: sql<number>`count(*)` })
 		.from(transaction)
 		.innerJoin(coin, eq(transaction.coinId, coin.id))
+		.leftJoin(recipientUser, eq(transaction.recipientUserId, recipientUser.id))
+		.leftJoin(senderUser, eq(transaction.senderUserId, senderUser.id))
+		.leftJoin(traderUser, eq(transaction.userId, traderUser.id))
 		.where(whereConditions);
 
 	const transactions = await db
 		.select({
 			id: transaction.id,
+			userId: transaction.userId,
 			type: transaction.type,
 			quantity: transaction.quantity,
 			pricePerCoin: transaction.pricePerCoin,
@@ -100,12 +153,17 @@ export async function GET({ request, url }) {
 			senderUser: {
 				id: senderUser.id,
 				username: senderUser.username
+			},
+			traderUser: {
+				id: traderUser.id,
+				username: traderUser.username
 			}
 		})
 		.from(transaction)
 		.innerJoin(coin, eq(transaction.coinId, coin.id))
 		.leftJoin(recipientUser, eq(transaction.recipientUserId, recipientUser.id))
 		.leftJoin(senderUser, eq(transaction.senderUserId, senderUser.id))
+		.leftJoin(traderUser, eq(transaction.userId, traderUser.id))
 		.where(whereConditions)
 		.orderBy(orderBy)
 		.limit(limit)
@@ -114,14 +172,20 @@ export async function GET({ request, url }) {
 	const formattedTransactions = transactions.map((tx) => {
 		const isTransfer = tx.type.startsWith('TRANSFER_');
 		const isIncoming = tx.type === 'TRANSFER_IN';
-		const isCoinTransfer = isTransfer && Number(tx.quantity) > 0;
+		const isCoinTransfer = Number(tx.quantity) > 0;
 
-		let actualSenderUsername = null;
-		let actualRecipientUsername = null;
+		let actualSenderUsername: string | null = null;
+		let actualRecipientUsername: string | null = null;
 
 		if (isTransfer) {
-			actualSenderUsername = tx.senderUser?.username;
-			actualRecipientUsername = tx.recipientUser?.username;
+			actualSenderUsername = tx.senderUser?.username ?? null;
+			actualRecipientUsername = tx.recipientUser?.username ?? null;
+		} else if (tx.type === 'BUY') {
+			actualSenderUsername = '-';
+			actualRecipientUsername = tx.traderUser?.username ?? null;
+		} else if (tx.type === 'SELL' || tx.type === 'BURN') {
+			actualSenderUsername = tx.traderUser?.username ?? null;
+			actualRecipientUsername = '-';
 		}
 
 		return {
@@ -130,9 +194,9 @@ export async function GET({ request, url }) {
 			pricePerCoin: Number(tx.pricePerCoin),
 			totalBaseCurrencyAmount: Number(tx.totalBaseCurrencyAmount),
 			note: tx.note ?? null,
-			isTransfer,
 			isIncoming,
 			isCoinTransfer,
+			traderUsername: tx.traderUser?.username ?? null,
 			recipient: actualRecipientUsername,
 			sender: actualSenderUsername,
 			transferInfo: isTransfer
@@ -158,4 +222,4 @@ export async function GET({ request, url }) {
 		page,
 		limit
 	});
-}
+};

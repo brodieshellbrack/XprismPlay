@@ -137,7 +137,7 @@
 						<Button
 							variant="outline"
 							size="sm"
-							href="https://discord.gg/BhSMmmT4tJ"
+							href="https://discord.gg/HKZ7EQEgaZ"
 							target="_blank"
 							rel="noopener"
 						>
