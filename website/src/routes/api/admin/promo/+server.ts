@@ -99,7 +99,7 @@ export const DELETE: RequestHandler = async ({ request }) => {
 		.from(user)
 		.where(eq(user.id, Number(session.user.id)))
 		.limit(1);
-	if (!hasFlag(currentUser.flags ?? 0n, 'IS_HEAD_ADMIN'))
+	if (!hasFlag(currentUser.flags, 'IS_HEAD_ADMIN'))
 		throw error(403, 'Head Admin access required');
 
 	const { id } = await request.json();
