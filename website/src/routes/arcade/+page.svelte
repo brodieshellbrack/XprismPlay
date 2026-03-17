@@ -38,8 +38,7 @@
 		{ id: 'dice', label: 'Dice', icon: DiceIcon },
 		{ id: 'tower', label: 'Tower', icon: ElectricTower01Icon },
 		{ id: 'blackjack', label: 'Blackjack', icon: SpadesIcon },
-		{ id: 'higherlower', label: 'Higher/Lower', icon: CurvyUpDownDirectionIcon },
-		{ id: 'poker', label: 'Poker', icon: SpadesIcon }
+		{ id: 'higherlower', label: 'Higher/Lower', icon: CurvyUpDownDirectionIcon }
 	];
 
 	let shouldSignIn = $state(false);
@@ -123,8 +122,6 @@
 			{:else if activeGame === 'blackjack'}
 				<Blackjack bind:balance onBalanceUpdate={handleBalanceUpdate} />
 			{:else if activeGame === 'higherlower'}
-				<HigherLower bind:balance onBalanceUpdate={handleBalanceUpdate} />
-			{:else if activeGame === 'poker'}
 				<HigherLower bind:balance onBalanceUpdate={handleBalanceUpdate} />
 			{/if}
 
