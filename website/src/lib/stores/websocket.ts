@@ -135,6 +135,8 @@ const commentSubscriptions = new Map<string, (message: any) => void>();
 
 // Price update callbacks
 const priceUpdateSubscriptions = new Map<string, (priceUpdate: PriceUpdate) => void>();
+const pokerSubscriptions = new Map<string, () => void>();
+const pokerChatSubscriptions = new Map<string, (message: any) => void>();
 
 export async function loadInitialTrades(mode: 'preview' | 'expanded' = 'preview'): Promise<void> {
 	if (!browser) return;
@@ -203,6 +205,10 @@ function subscribeToChannels(): void {
 	sendMessage({ type: 'subscribe', channel: 'trades:all' });
 	sendMessage({ type: 'subscribe', channel: 'trades:large' });
 	sendMessage({ type: 'set_coin', coinSymbol: activeCoin });
+
+	for (const lobbyId of pokerSubscriptions.keys()) {
+		sendMessage({ type: 'poker_join', lobbyId });
+	}
 }
 
 function handleTradeMessage(message: any): void {
@@ -248,6 +254,24 @@ function handlePriceUpdateMessage(message: any): void {
 	}
 }
 
+function handlePokerStateMessage(message: any): void {
+	if (!message.lobbyId) return;
+
+	const callback = pokerSubscriptions.get(message.lobbyId);
+	if (callback) {
+		callback();
+	}
+}
+
+function handlePokerChatMessage(message: any): void {
+	if (!message.lobbyId) return;
+
+	const callback = pokerChatSubscriptions.get(message.lobbyId);
+	if (callback) {
+		callback(message.message);
+	}
+}
+
 function handleArcadeActivityMessage(message: any): void {
 	if (message.arcadeActivity) {
 		const arcadeActivity: ArcadeActivity = {
@@ -284,6 +308,14 @@ function handleWebSocketMessage(event: MessageEvent): void {
 
 			case 'admin_log':
 				adminLogStore.update((logs) => [message.data, ...logs.slice(0, 199)]);
+				break;
+
+			case 'poker_state':
+				handlePokerStateMessage(message);
+				break;
+
+			case 'poker_chat':
+				handlePokerChatMessage(message);
 				break;
 
 			case 'ping':
@@ -432,6 +464,24 @@ function unsubscribeFromPriceUpdates(coinSymbol: string): void {
 	priceUpdateSubscriptions.delete(coinSymbol);
 }
 
+function subscribeToPokerLobby(lobbyId: string, callback: () => void): void {
+	pokerSubscriptions.set(lobbyId, callback);
+	sendMessage({ type: 'poker_join', lobbyId });
+}
+
+function unsubscribeFromPokerLobby(lobbyId: string): void {
+	pokerSubscriptions.delete(lobbyId);
+}
+
+function subscribeToPokerChat(lobbyId: string, callback: (message: any) => void): void {
+	pokerChatSubscriptions.set(lobbyId, callback);
+	sendMessage({ type: 'poker_join', lobbyId });
+}
+
+function unsubscribeFromPokerChat(lobbyId: string): void {
+	pokerChatSubscriptions.delete(lobbyId);
+}
+
 class WebSocketController {
 	connect() {
 		connect();
@@ -459,6 +509,22 @@ class WebSocketController {
 
 	unsubscribeFromPriceUpdates(coinSymbol: string) {
 		unsubscribeFromPriceUpdates(coinSymbol);
+	}
+
+	subscribeToPokerLobby(lobbyId: string, callback: () => void) {
+		subscribeToPokerLobby(lobbyId, callback);
+	}
+
+	unsubscribeFromPokerLobby(lobbyId: string) {
+		unsubscribeFromPokerLobby(lobbyId);
+	}
+
+	subscribeToPokerChat(lobbyId: string, callback: (message: any) => void) {
+		subscribeToPokerChat(lobbyId, callback);
+	}
+
+	unsubscribeFromPokerChat(lobbyId: string) {
+		unsubscribeFromPokerChat(lobbyId);
 	}
 
 	loadInitialTrades(mode: 'preview' | 'expanded' = 'preview') {
