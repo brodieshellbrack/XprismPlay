@@ -18,6 +18,7 @@ sleep 10
 
 echo "🔍 Checking container status..."
 docker compose ps
+cat website/drizzle/*.sql | docker exec -i XprismPlay-postgres psql -U pguser -d XprismPlay
 
 echo "📊 Checking service health..."
 echo "Main app: http://localhost:3002"

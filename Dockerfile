@@ -20,7 +20,8 @@ FROM base-node AS build-main
 COPY website/package.json website/package-lock.json* ./
 
 # Install dependencies with platform-specific binaries
-RUN npm ci --include=dev --platform=linux --arch=x64
+RUN npm ci --include=dev --platform=linux 
+#--arch=x64 (maybe not)
 
 # Copy the rest of the application
 COPY website/. .
