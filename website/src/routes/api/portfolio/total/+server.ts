@@ -49,10 +49,10 @@ export async function GET({ request }) {
 			const baseCurrency = Number(holding.poolBaseCurrencyAmount);
 			const coinAmount = Number(holding.poolCoinAmount);
 
-			let k = baseCurrency * coinAmount;
-			let newCoinAmount = coinAmount + quantity;
-			let newBaseCurrency = k / newCoinAmount;
-			let value = baseCurrency - newBaseCurrency;
+			var k = baseCurrency * coinAmount;
+			var newCoinAmount = coinAmount + quantity;
+			var newBaseCurrency = k / newCoinAmount;
+			var value = baseCurrency - newBaseCurrency;
 			totalCoinValue += value;
 
 			const allTransactions = await db
